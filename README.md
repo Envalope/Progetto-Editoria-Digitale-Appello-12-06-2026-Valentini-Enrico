@@ -20,7 +20,7 @@ Nella repository sono presenti gli output editoriali generati automaticamente (P
   * `epub.css` (Stile per e-book e sito web)
   * `latex-template.tex` (Regole tipografiche per la stampa)
 * **`03_Script/`**: Il motore di automazione del progetto.
-  * `main.py` (Script orchestratore principale)
+  * `main.py` (Script principale)
 * **`04_Output/`**: I documenti e i metadati generati in automatico.
   * `output.pdf` (Documento per la stampa)
   * `output.epub` (E-book)
@@ -31,22 +31,22 @@ Nella repository sono presenti gli output editoriali generati automaticamente (P
 
 ## Il Flusso del Processo Editoriale
 
-Il progetto segue le 6 fasi canoniche dell'editoria, implementate attraverso un'architettura automatizzata di *Single Source Publishing*. Dal punto di vista logico, il flusso è diviso in una fase di input (acquisizione risorse grezze), una fase di elaborazione centrale (orchestrata dallo script `main.py`) e una fase di output (generazione e distribuzione).
+Il progetto segue le 6 fasi classiche dell'editoria digitale, automatizzando tutto il flusso di lavoro partendo da un unico set di file (*Single Source Publishing*). Il cuore del progetto è lo script `main.py`, che gestisce l'elaborazione dei testi e la generazione dei file finali.
 
-Ecco nel dettaglio come i singoli file interagiscono in ogni fase:
+Ecco nel dettaglio come i file interagiscono in ogni singola fase:
 
-1. **Ideazione:** Si definisce il perimetro del progetto, scegliendo come tematica "One Health".
-2. **Acquisizione dei contenuti:** Tutto il materiale grezzo viene depositato nella cartella `01_Sorgenti/`. Il contenuto testuale risiede in `input.md`, i dati informativi dell'opera in `metadati.yaml`, i riferimenti accademici in `bibliografia.bib` e l'estetica di facciata in `copertina.png`.
-3. **Revisione e Redazione:** Inizia l'automazione. Lo script `main.py` preleva il file `input.md` ed esegue una revisione invisibile: normalizza la sintassi del testo testuale, corregge le spaziature errate e inietta automaticamente i tag necessari per collegare le parole al glossario. Il risultato è un testo "pulito" e validato.
-4. **Progettazione Grafica:** Vengono predisposti i file contenuti in `02_Stili/`. Il file `epub.css` contiene le direttive visive (colori, font, spazi) per il Web-Book e l'EPUB, mentre `latex-template.tex` definisce l'impaginazione rigorosa richiesta per la stampa.
-5. **Produzione:** Lo script `main.py` orchestra la fase finale sdoppiandosi in due processi logici paralleli:
-   * **Elaborazione Metadati:** Lo script legge i dati da `metadati.yaml` e costruisce autonomamente i file strutturati `output_onix.json` e `output_schema_org.json`, depositandoli nella cartella `04_Output/`.
-   * **Compilazione Documenti:** Lo script invoca il compilatore esterno `Pandoc`. A questo programma vengono forniti il testo pulito, i file grafici (`copertina.png`, `epub.css`, `latex-template.tex`) e il database delle citazioni (`bibliografia.bib`). `Pandoc` fonde tutti questi file per generare simultaneamente la triade editoriale: `output.pdf` e `output.epub` (nella cartella `04_Output/`) e `index.html` (nella cartella `05_webook/site/`).
-6. **Distribuzione:** I metadati e i file editoriali ormai pronti vengono inviati tramite Git alla repository e ospitati pubblicamente su GitHub Pages.
+1. **Ideazione:** Scelta dell'argomento principale del progetto, in questo caso il tema "One Health".
+2. **Acquisizione dei contenuti:** Tutto il materiale di partenza viene inserito nella cartella `01_Sorgenti/`. Troviamo il testo in `input.md`, i dati del libro in `metadati.yaml`, i riferimenti per le citazioni in `bibliografia.bib` e l'immagine in `copertina.png`.
+3. **Revisione e Redazione:** Lo script `main.py` legge il file `input.md` e pulisce il testo in automatico: corregge gli spazi e inserisce i collegamenti per il glossario. Otteniamo così un testo pronto e senza errori.
+4. **Progettazione Grafica:** Prepariamo i file nella cartella `02_Stili/`. Il file `epub.css` definisce i colori e i font per il sito web e l'EPUB, mentre `latex-template.tex` imposta le regole di impaginazione per la stampa.
+5. **Produzione:** In questa fase lo script `main.py` fa due cose in parallelo:
+   * Legge i dati da `metadati.yaml` e crea da solo i file `output_onix.json` e `output_schema_org.json` (che finiscono in `04_Output/`).
+   * Lancia il programma `Pandoc`, passandogli il testo pulito, l'immagine di copertina, la grafica (`epub.css` e `latex-template.tex`) e le citazioni (`bibliografia.bib`). `Pandoc` unisce tutto e genera i tre file finali: `output.pdf`, `output.epub` e `index.html`.
+6. **Distribuzione:** Tutti i file pronti vengono caricati su GitHub tramite Git e pubblicati online utilizzando GitHub Pages.
 
 ### Schema Visivo del Processo
 
-Il diagramma sottostante mappa fedelmente la spiegazione logica appena descritta. Mostra l'acquisizione dei file sorgenti, l'azione di smistamento dello script centrale, l'intervento della grafica e la produzione parallela dei formati finali.
+Il diagramma riassume visivamente la spiegazione appena fatta. Mostra in modo chiaro l'acquisizione dei file di partenza, il lavoro svolto dallo script `main.py`, l'applicazione della grafica e la produzione finale dei vari formati.
 
 ```mermaid
 graph TD
@@ -78,9 +78,9 @@ graph TD
     end
     
     %% 5. PRODUZIONE
-    MAIN -->|Estrae e scrive dati| META[5. Produzione Metadati:<br/>output_onix.json<br/>output_schema_org.json]
+    MAIN -->|Crea automaticamente i dati| META[5. Produzione Metadati:<br/>output_onix.json<br/>output_schema_org.json]
     
-    MAIN -->|Invia testo normalizzato, dati e copertina| PANDOC((5. Compilazione Automatica:<br/>Programma Pandoc))
+    MAIN -->|Invia testo pulito, dati e copertina| PANDOC((5. Compilazione Automatica:<br/>Programma Pandoc))
     
     CSS --> PANDOC
     TEX --> PANDOC
