@@ -31,20 +31,22 @@ Nella repository sono presenti gli output editoriali generati automaticamente (P
 
 ## Il Flusso del Processo Editoriale
 
-Il progetto segue le 6 fasi dell'editoria digitale automatizzando il flusso da una singola sorgente (*Single Source Publishing*). Lo script **`main.py`** agisce come orchestratore centrale delle operazioni:
+Il progetto segue le 6 fasi canoniche dell'editoria, implementate attraverso un'architettura automatizzata di *Single Source Publishing*. Dal punto di vista logico, il flusso è diviso in una fase di input (acquisizione risorse grezze), una fase di elaborazione centrale (orchestrata dallo script `main.py`) e una fase di output (generazione e distribuzione).
 
-1. **Ideazione:** Scelta del tema ("One Health").
-2. **Acquisizione:** I contenuti base, i dati strutturati, l'immagine e la bibliografia vengono raccolti nella cartella `01_Sorgenti/`.
-3. **Revisione e Redazione (`main.py`):** Lo script preleva `input.md` e lo pulisce automaticamente, correggendo gli spazi e inserendo i riferimenti per il glossario.
-4. **Progettazione Grafica:** Vengono preparati i file `epub.css` e `latex-template.tex` per istruire il compilatore su come colorare e impaginare i testi.
-5. **Produzione (`main.py` + `Pandoc`):** Lo script `main.py` svolge due compiti:
-   * Estrae i dati da `metadati.yaml` e genera da solo i due file JSON.
-   * Chiama in aiuto il programma `Pandoc`, passandogli il testo pulito, la copertina, il file `bibliografia.bib` per la risoluzione delle citazioni e i fogli di stile. `Pandoc` crea simultaneamente `output.pdf`, `output.epub` e `index.html`.
-6. **Distribuzione:** Tutti i file finiti vengono caricati su GitHub e pubblicati automaticamente online.
+Ecco nel dettaglio come i singoli file interagiscono in ogni fase:
+
+1. **Ideazione:** Si definisce il perimetro del progetto, scegliendo come tematica "One Health".
+2. **Acquisizione dei contenuti:** Tutto il materiale grezzo viene depositato nella cartella `01_Sorgenti/`. Il contenuto testuale risiede in `input.md`, i dati informativi dell'opera in `metadati.yaml`, i riferimenti accademici in `bibliografia.bib` e l'estetica di facciata in `copertina.png`.
+3. **Revisione e Redazione:** Inizia l'automazione. Lo script `main.py` preleva il file `input.md` ed esegue una revisione invisibile: normalizza la sintassi del testo testuale, corregge le spaziature errate e inietta automaticamente i tag necessari per collegare le parole al glossario. Il risultato è un testo "pulito" e validato.
+4. **Progettazione Grafica:** Vengono predisposti i file contenuti in `02_Stili/`. Il file `epub.css` contiene le direttive visive (colori, font, spazi) per il Web-Book e l'EPUB, mentre `latex-template.tex` definisce l'impaginazione rigorosa richiesta per la stampa.
+5. **Produzione:** Lo script `main.py` orchestra la fase finale sdoppiandosi in due processi logici paralleli:
+   * **Elaborazione Metadati:** Lo script legge i dati da `metadati.yaml` e costruisce autonomamente i file strutturati `output_onix.json` e `output_schema_org.json`, depositandoli nella cartella `04_Output/`.
+   * **Compilazione Documenti:** Lo script invoca il compilatore esterno `Pandoc`. A questo programma vengono forniti il testo pulito, i file grafici (`copertina.png`, `epub.css`, `latex-template.tex`) e il database delle citazioni (`bibliografia.bib`). `Pandoc` fonde tutti questi file per generare simultaneamente la triade editoriale: `output.pdf` e `output.epub` (nella cartella `04_Output/`) e `index.html` (nella cartella `05_webook/site/`).
+6. **Distribuzione:** I metadati e i file editoriali ormai pronti vengono inviati tramite Git alla repository e ospitati pubblicamente su GitHub Pages.
 
 ### Schema Visivo del Processo
 
-Il diagramma mostra ogni singolo file del progetto e illustra in modo logico il percorso dell'informazione, dalla sua creazione fino alla pubblicazione finale sul web.
+Il diagramma sottostante mappa fedelmente la spiegazione logica appena descritta. Mostra l'acquisizione dei file sorgenti, l'azione di smistamento dello script centrale, l'intervento della grafica e la produzione parallela dei formati finali.
 
 ```mermaid
 graph TD
