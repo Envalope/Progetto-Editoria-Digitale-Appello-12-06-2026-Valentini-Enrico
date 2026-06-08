@@ -36,7 +36,7 @@ Il progetto segue le 6 fasi classiche dell'editoria digitale, automatizzando tut
 Ecco nel dettaglio come i file interagiscono in ogni singola fase:
 
 1. **Ideazione:** Scelta dell'argomento principale del progetto, in questo caso il tema "One Health".
-2. **Acquisizione dei contenuti:** Tutto il materiale di partenza viene inserito nella cartella `01_Sorgenti/`. Troviamo il testo in `input.md`, i dati del libro in `metadati.yaml`, i riferimenti per le citazioni in `bibliografia.bib` e l'immagine in `copertina.png`.
+2. **Acquisizione dei contenuti:** Tutto il materiale di partenza viene inserito nella cartella `01_Sorgenti/`. Troviamo il testo in `input.md`, i metadati in `metadati.yaml`, i riferimenti per le citazioni in `bibliografia.bib` e l'immagine in `copertina.png`.
 3. **Revisione e Redazione:** Lo script `main.py` legge il file `input.md` e pulisce il testo in automatico: corregge gli spazi e inserisce i collegamenti per il glossario. Otteniamo così un testo pronto e senza errori.
 4. **Progettazione Grafica:** Prepariamo i file nella cartella `02_Stili/`. Il file `epub.css` definisce i colori e i font per il sito web e l'EPUB, mentre `latex-template.tex` imposta le regole di impaginazione per la stampa.
 5. **Produzione:** In questa fase lo script `main.py` fa due cose in parallelo:
