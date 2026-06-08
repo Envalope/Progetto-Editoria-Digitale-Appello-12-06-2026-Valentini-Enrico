@@ -41,37 +41,39 @@ Il progetto segue le 6 fasi dell'editoria digitale automatizzando il flusso da u
 
 ### Schema Visivo del Processo
 
-Il seguente diagramma mostra in modo compatto come i file sorgenti attraversino lo script e i compilatori fino a diventare un prodotto finito, seguendo le 6 fasi editoriali.
+Il seguente diagramma mostra in modo logico come i file sorgenti attraversino lo script e i compilatori fino a diventare un prodotto finito, seguendo fedelmente le 6 fasi editoriali.
 
 ```mermaid
-graph LR
+graph TD
     %% 1. IDEAZIONE & 2. ACQUISIZIONE
     ID[1. Ideazione:<br/>Tema One Health] --> IN[2. Acquisizione:<br/>input.md, metadati.yaml]
     
     %% 3. REVISIONE
     IN --> MAIN((3. Revisione testuale:<br/>Script main.py))
     
-    %% 4. GRAFICA
+    %% 4. GRAFICA E METADATI
     MAIN -->|Testo pulito| GRAF[4. Progettazione Grafica:<br/>Applica epub.css]
-    
-    %% 5. PRODUZIONE (Divisa tra main.py per i dati e Pandoc per i documenti)
     MAIN -->|Estrae dati JSON| META[5. Produzione Metadati:<br/>output_onix.json<br/>output_schema_org.json]
+    
+    %% 5. PRODUZIONE DOCUMENTI
     GRAF --> PANDOC((5. Produzione Documenti:<br/>Compilatore Pandoc))
     
-    PANDOC --> DOCS[Documenti:<br/>output.pdf, output.epub]
+    PANDOC --> DOC[Documento per la Stampa:<br/>output.pdf]
+    PANDOC --> EPUB[Documento Digitale:<br/>output.epub]
     PANDOC --> WEB[Sito Web-Book:<br/>index.html]
     
     %% 6. DISTRIBUZIONE
     META --> OUT{6. Distribuzione:<br/>GitHub Pages}
-    DOCS --> OUT
+    DOC --> OUT
+    EPUB --> OUT
     WEB --> OUT
 
-    %% STILI COMPATTI
+    %% STILI
     classDef fase fill:#f8f9fa,stroke:#adb5bd,stroke-width:2px,color:#000
     classDef script fill:#fff3cd,stroke:#ffc107,stroke-width:3px,color:#000
     classDef output fill:#e2e3e5,stroke:#6c757d,stroke-width:2px,color:#000
     
     class ID,IN,GRAF fase
     class MAIN,PANDOC script
-    class META,DOCS,WEB output
+    class META,DOC,EPUB,WEB output
     class OUT fase
