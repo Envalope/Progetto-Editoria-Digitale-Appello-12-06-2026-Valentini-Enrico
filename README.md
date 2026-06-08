@@ -12,10 +12,10 @@ Nella repository sono presenti gli output editoriali generati automaticamente (P
 ## Struttura delle Cartelle
 
 * **`01_Sorgenti/`**: File di partenza inseriti dall'autore (`input.md`, `metadati.yaml`, `copertina.png`).
-* **`02_Stili/`**: Regole grafiche e di impaginazione (`epub.css`).
+* **`02_Stili/`**: Regole grafiche e di impaginazione (`epub.css` per sito web ed e-book).
 * **`03_Script/`**: Il motore di automazione del progetto (`main.py`).
 * **`04_Output/`**: I documenti e i dati generati automaticamente (PDF, EPUB, ONIX, Schema.org).
-* **`05_webook/site/`**: I file pronti per il sito web (`index.html`).
+* **`05_webook/site/`**: La cartella dedicata al sito statico Web-Book (`index.html`).
 
 ## Analisi e Scopo dei File Generati
 
@@ -26,7 +26,7 @@ Nella repository sono presenti gli output editoriali generati automaticamente (P
 ### File di Contenuto (in `04_Output/` e `05_webook/site/`)
 * **`output.pdf`**: Formato impaginato a pagina fissa per la stampa tradizionale.
 * **`output.epub`**: Formato per la lettura ottimizzata su e-reader.
-* **`index.html`**: Il libro in formato sito web interattivo.
+* **`index.html`**: Il libro in formato sito web (Web-Book statico) interattivo.
 
 ## Il Flusso del Processo Editoriale
 
@@ -34,35 +34,38 @@ Il progetto segue le 6 fasi dell'editoria digitale automatizzando il flusso da u
 
 1. **Ideazione:** Scelta del tema ("One Health").
 2. **Acquisizione:** I contenuti base vengono scritti nei file `input.md` e `metadati.yaml`.
-3. **Azione di `main.py` (Revisione e Redazione):** Lo script preleva i file sorgenti e, parallelamente, svolge tre compiti:
-    * Pulisce automaticamente il testo di `input.md` e inietta i riferimenti per il glossario.
-    * Estrae le informazioni da `metadati.yaml` per generare i file `output_onix.json` e `output_schema_org.json`.
-    * Prepara l'applicazione delle regole grafiche presenti in `epub.css`.
-4. **Progettazione Grafica:** I fogli di stile vengono associati al testo ripulito.
-5. **Compilazione:** Lo script `main.py` passa tutti i dati elaborati a `Pandoc`, il quale genera definitivamente i formati finali (`output.pdf`, `output.epub`, `index.html`).
-6. **Distribuzione:** I file finali vengono caricati su GitHub e pubblicati online.
+3. **Azione di `main.py` (Revisione e Redazione):** Lo script preleva i file sorgenti e, parallelamente, svolge compiti di preparazione:
+    * Pulisce il testo di `input.md` e inietta i riferimenti per il glossario.
+    * Estrae le informazioni da `metadati.yaml` per generare i metadati JSON.
+4. **Progettazione Grafica:** Lo script aggancia i fogli di stile, in particolare `epub.css`, fondamentale per la resa visiva del Web-Book (sito statico) e dell'EPUB.
+5. **Compilazione:** `main.py` passa il testo elaborato e la grafica a `Pandoc`, il quale compila simultaneamente i documenti per la stampa (`output.pdf`) e i formati digitali, generando il sito statico (`index.html`) e l'e-book (`output.epub`).
+6. **Distribuzione:** Tutti gli output vengono inviati alla repository e il Web-Book viene ospitato online su GitHub Pages.
 
 ### Schema Visivo del Processo
 
-Il diagramma ricalca l'esatto percorso logico e tecnologico dei file, partendo dai documenti originali fino alla pubblicazione web.
+Il diagramma ricalca il percorso logico e tecnologico dei file, evidenziando le operazioni in parallelo gestite dallo script principale fino alla generazione del sito statico e dei documenti editoriali.
 
 ```mermaid
 graph LR
     %% Definizione degli step base
     TEMA[Ideazione:<br/>Tema One Health]
-    SORGENTI[Acquisizione:<br/>input.md, metadati.yaml]
+    SORGENTI[Acquisizione contenuti:<br/>input.md e metadati.yaml]
     
     %% Nodi orchestratori (Cerchi)
-    MAIN((Azione automatica:<br/>script main.py))
-    PANDOC((Compilazione finalizzata:<br/>Pandoc & XeLaTeX))
+    MAIN((Elaborazione con<br/>script main.py))
+    PANDOC((Compilazione con<br/>Pandoc & XeLaTeX))
     
-    %% Rami paralleli
-    MD[Revisione:<br/>Pulizia testo input.md<br/>e iniezione Glossario]
-    JSON[Metadati generati:<br/>output_onix.json,<br/>output_schema_org.json]
-    CSS[Grafica applicata:<br/>Lettura epub.css<br/>e regole stampa]
+    %% Rami paralleli centrali
+    MD[Modifica file .md:<br/>Pulizia testo e glossario]
+    JSON[Generazione Metadati:<br/>output_onix e schema_org]
+    GRAFICA[Applicazione foglio di stile:<br/>epub.css per Web-Book/EPUB<br/>e regole per PDF]
     
+    %% Nodi di output finali
+    WEB[Web-Book statico:<br/>index.html]
+    DOCS[Documenti editoriali:<br/>output.pdf, output.epub]
+
     %% Nodo finale (Rombo)
-    OUT{Caricamento finale:<br/>GitHub Pages}
+    OUT{Caricamento finale:<br/>su GitHub Pages}
 
     %% Flusso delle operazioni
     TEMA --> SORGENTI
@@ -70,13 +73,18 @@ graph LR
 
     %% Diramazione dal main.py
     MAIN --> MD
+    MAIN --> GRAFICA
     MAIN --> JSON
-    MAIN --> CSS
 
     %% Convergenza verso il compilatore
     MD --> PANDOC
-    JSON --> PANDOC
-    CSS --> PANDOC
+    GRAFICA --> PANDOC
+
+    %% Creazione degli output
+    PANDOC --> WEB
+    PANDOC --> DOCS
 
     %% Pubblicazione
-    PANDOC --> OUT
+    WEB --> OUT
+    DOCS --> OUT
+    JSON --> OUT
