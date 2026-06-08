@@ -69,4 +69,4 @@ output.pdf: Formato editoriale a pagina fissa (XeLaTeX) per stampa o consultazio
 
 output.epub: Formato e-book fluido (con copertina e CSS dedicato).
 
-index.html: Web-Book interattivo hostabile, completo di glossario e indice cliccabile.
+index.html: Web-Book interattivo hostabile, completo di glossario e indice cliccabile
