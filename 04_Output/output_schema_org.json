@@ -1,0 +1,21 @@
+{
+    "@context": "https://schema.org",
+    "@type": "Book",
+    "name": "One Health & Futuro Digitale: Dossier Strategico",
+    "author": [
+        {
+            "@type": "Person",
+            "name": "Enrico Valentini"
+        }
+    ],
+    "datePublished": "2026-06-11",
+    "publisher": {
+        "@type": "Organization",
+        "name": "Progetto di Editoria Digitale"
+    },
+    "isbn": "978-88-00000-00-1",
+    "genre": "Dossier Analitico",
+    "language": "it",
+    "inLanguage": "it",
+    "format": "PDF/HTML"
+}
