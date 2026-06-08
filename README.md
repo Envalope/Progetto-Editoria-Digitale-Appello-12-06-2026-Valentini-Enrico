@@ -18,8 +18,42 @@ Il processo si articola in tre flussi principali:
 2. **Generazione Metadati:** Vengono creati i file JSON strutturati (`output_onix.json` e `output_schema_org.json`) che fungono da carta d'identità digitale dell'opera.
 3. **Compilazione:** Pandoc (con XeLaTeX o CSS personalizzati) compila i file di output (PDF, EPUB e Web-Book).
 
-### Schema di Generazione
 
+### Struttura delle Cartelle
+01_Sorgenti/: Contiene il nucleo informativo primario (input.md, metadati.yaml, copertina.png).
+
+02_Stili/: Ospita i fogli di stile (es. epub.css per l'e-book).
+
+03_Script/: La componente logica del sistema contenente main.py.
+
+04_Output/: Directory generata automaticamente destinata ai formati di distribuzione.
+
+05_webook/site/: Spazio dedicato alla distribuzione del Web-Book interattivo.
+
+Analisi e Scopo dei File Generati
+File di Metadati (Generati in 04_Output/)
+Questi file sono fondamentali per la reperibilità e la distribuzione del dossier:
+
+output_onix.json:
+
+Scopo: Mappatura degli attributi dell'opera secondo lo standard internazionale ONIX (ONline Information eXchange). Viene utilizzato per la comunicazione commerciale B2B (librerie, distributori, cataloghi editoriali).
+
+Generazione: Creato dallo script main.py tramite la funzione convert_to_onix, che estrae le informazioni dal file metadati.yaml e le struttura nel formato richiesto.
+
+output_schema_org.json:
+
+Scopo: Serializzazione JSON-LD conforme al vocabolario semantico di Schema.org. Serve a "spiegare" ai motori di ricerca che il contenuto è un libro, permettendo di ottenere risultati più visibili (Rich Snippets).
+
+Generazione: Creato dallo script main.py tramite la funzione convert_to_schema_org, che mappa i dati di metadati.yaml nelle proprietà semantiche di Book per il Web.
+
+File di Contenuto (Generati in 04_Output/ e 05_webook/site/)
+output.pdf: Formato editoriale a pagina fissa (XeLaTeX) per stampa o consultazione statica.
+
+output.epub: Formato e-book fluido (con copertina e CSS dedicato).
+
+index.html: Web-Book interattivo hostabile, completo di glossario e indice cliccabile.
+
+### Schema di Generazione
 ```mermaid
 graph TD
     Input[input.md + metadati.yaml]
@@ -37,28 +71,3 @@ graph TD
 
     style Script fill:#f9f,stroke:#333,stroke-width:2px
     style Pandoc fill:#bbf,stroke:#333,stroke-width:2px
-    
-## Struttura delle Cartelle
-
-* **`01_Sorgenti/`**: Contiene il nucleo informativo primario (`input.md`, `metadati.yaml`, `copertina.png`).
-* **`02_Stili/`**: Ospita i fogli di stile (es. `epub.css` per l'e-book).
-* **`03_Script/`**: La componente logica del sistema contenente `main.py`.
-* **`04_Output/`**: Directory generata automaticamente destinata ai formati di distribuzione.
-* **`05_webook/site/`**: Spazio dedicato alla distribuzione del Web-Book interattivo.
-
-## Analisi e Scopo dei File Generati
-
-### File di Metadati (Generati in `04_Output/`)
-Questi file sono fondamentali per la reperibilità e la distribuzione del dossier:
-
-* **`output_onix.json`**: 
-    * **Scopo**: Mappatura degli attributi dell'opera secondo lo standard internazionale ONIX (ONline Information eXchange). Viene utilizzato per la comunicazione commerciale B2B (librerie, distributori, cataloghi editoriali).
-    * **Generazione**: Creato dallo script `main.py` tramite la funzione `convert_to_onix`, che estrae le informazioni dal file `metadati.yaml` e le struttura nel formato richiesto.
-* **`output_schema_org.json`**: 
-    * **Scopo**: Serializzazione JSON-LD conforme al vocabolario semantico di Schema.org. Serve a "spiegare" ai motori di ricerca che il contenuto è un libro, permettendo di ottenere risultati più visibili (Rich Snippets).
-    * **Generazione**: Creato dallo script `main.py` tramite la funzione `convert_to_schema_org`, che mappa i dati di `metadati.yaml` nelle proprietà semantiche di `Book` per il Web.
-
-### File di Contenuto (Generati in `04_Output/` e `05_webook/site/`)
-* **`output.pdf`**: Formato editoriale a pagina fissa (XeLaTeX) per stampa o consultazione statica.
-* **`output.epub`**: Formato e-book fluido (con copertina e CSS dedicato).
-* **`index.html`**: Web-Book interattivo hostabile, completo di glossario e indice cliccabile.
