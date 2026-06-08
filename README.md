@@ -2,7 +2,7 @@
 
 Progetto realizzato nell'ambito del corso di Editoria Digitale del prof. Ceravolo Paolo.
 
-Il Web-Book è raggiungibile e navigabile al seguente link: **https://github.com/Envalope/Progetto-Editoria-Digitale-Appello-12-06-2026-Valentini-Enrico**
+Il Web-Book è raggiungibile e navigabile al seguente link: **[Inserisci qui il link di GitHub Pages]**
 
 Nella repository sono presenti gli output editoriali generati automaticamente (PDF, EPUB) ottimizzati per la stampa e gli e-reader, e i file di metadati strutturati (ONIX e Schema.org) pronti per l'indicizzazione.
 
@@ -29,18 +29,16 @@ Nella repository sono presenti gli output editoriali generati automaticamente (P
 
 ## Il Flusso del Processo Editoriale
 
-Il progetto automatizza le **6 fasi canoniche della produzione editoriale**, adottando il paradigma del *Single Source Publishing*. Il cuore pulsante dell'architettura è lo script `main.py`, che funge da orchestratore per le fasi di revisione testuale, generazione dei metadati e invocazione dei compilatori.
+Il progetto automatizza le **6 fasi canoniche della produzione editoriale**, adottando un approccio moderno in cui da una singola sorgente si ottengono formati multipli (*Single Source Publishing*). Il motore di questa automazione è lo script `main.py`.
 
 1. **Ideazione:** Definizione della tematica "One Health" e dell'architettura dell'informazione.
-2. **Acquisizione dei contenuti:** Raccolta dei materiali grezzi in `01_Sorgenti/`. I contenuti testuali risiedono in `input.md` (Markdown), i parametri e i metadati in `metadati.yaml` (YAML) e le risorse visive in `copertina.png`.
-3. **Revisione e redazione:** Lo script `main.py` (Python 3) legge il file `input.md` ed esegue una normalizzazione automatizzata. Utilizzando il modulo RegEx, corregge la formattazione e inietta dinamicamente gli apici di riferimento per il glossario, preparando un testo validato per la compilazione.
-4. **Progettazione grafica:** Definizione delle regole visive. Vengono predisposti il foglio di stile `epub.css` per i formati a layout fluido (Web/EPUB) e le direttive tipografiche per il motore XeLaTeX (PDF).
-5. **Produzione:** È la fase di compilazione orchestrata da `main.py`. Lo script esegue due compiti paralleli:
-    * **Elaborazione dati:** Estrae i dati da `metadati.yaml` e genera direttamente i file `output_onix.json` e `output_schema_org.json`.
-    * **Invocazione motore:** Richiama da riga di comando `Pandoc`, passandogli il testo revisionato e i file di stile, per generare in modo automatizzato `output.pdf`, `output.epub` e `index.html`.
-6. **Distribuzione:** I file finali vengono versionati tramite `Git` e caricati sul repository online per essere hostati e resi navigabili pubblicamente tramite `GitHub Pages`.
+2. **Acquisizione dei contenuti:** I testi vengono inseriti nel file `input.md` (usando il linguaggio Markdown), mentre le impostazioni e i dati dell'opera vanno in `metadati.yaml` (linguaggio YAML). Entrambi si trovano in `01_Sorgenti/`.
+3. **Revisione e redazione:** Lo script `main.py` (scritto in Python) legge il testo originale e lo "pulisce" in automatico. Corregge eventuali errori di formattazione e inserisce da solo i collegamenti al glossario, preparando un testo perfetto per le fasi successive.
+4. **Progettazione grafica:** Vengono creati i file che dettano l'aspetto estetico: `epub.css` per i formati digitali (Web ed EPUB) e le regole tipografiche per la stampa.
+5. **Produzione:** Lo script `main.py` entra di nuovo in azione per la fase finale. Estrae i dati per creare i metadati (`output_onix.json` e `output_schema_org.json`) e passa il testo pulito a `Pandoc`, un programma di conversione che genera automaticamente la versione stampabile (`output.pdf`), l'e-book (`output.epub`) e il sito web (`index.html`).
+6. **Distribuzione:** Tutti i file finiti vengono caricati e resi disponibili al pubblico tramite il sistema di hosting gratuito `GitHub Pages`.
 
-### Schema di Processo Dettagliato
+### Schema Logico del Processo
 
 ```mermaid
 graph TD
@@ -50,47 +48,38 @@ graph TD
     end
 
     subgraph F2 [2. Acquisizione dei contenuti]
-        SRC[Testo: input.md<br/>Linguaggio: Markdown]:::acquisizione
-        META[Parametri: metadati.yaml<br/>Linguaggio: YAML]:::acquisizione
-        IMG[Grafica: copertina.png]:::acquisizione
+        SRC[Testo Grezzo: input.md]:::acquisizione
+        META[Dati Opera: metadati.yaml]:::acquisizione
     end
 
     subgraph F3 [3. Revisione e redazione]
-        MAIN_REV[Script Orchestratore: main.py<br/>Azione: Normalizzazione e Glossario<br/>Linguaggio: Python / RegEx]:::revisione
+        MAIN_REV[Script Python: main.py<br/>Azione: Pulizia automatica del testo]:::revisione
     end
 
     subgraph F4 [4. Progettazione grafica]
-        CSS[Stile E-book/Web: epub.css<br/>Linguaggio: CSS3]:::grafica
-        TEX[Stile Stampa: Setup XeLaTeX<br/>Linguaggio: LaTeX]:::grafica
+        STILI[Regole Visive: epub.css e stili stampa]:::grafica
     end
 
     subgraph F5 [5. Produzione]
-        MAIN_PROD[Script Orchestratore: main.py<br/>Azione: Estrazione JSON e Chiamata di Sistema]:::produzione
-        PANDOC[Motore di Compilazione: Pandoc]:::produzione
-        OUT_META[Metadati Generati:<br/>output_onix.json, output_schema_org.json]:::produzione
-        OUT_DOC[Output Editoriali Generati:<br/>output.pdf, output.epub, index.html]:::produzione
+        PANDOC[Programma: Pandoc<br/>Azione: Compilazione automatica]:::produzione
+        OUT_META[Metadati: output_onix.json, output_schema_org.json]:::produzione
+        OUT_DOC[Documenti: output.pdf, output.epub, index.html]:::produzione
     end
 
     subgraph F6 [6. Distribuzione]
-        DIST[Hosting Web: GitHub Pages<br/>Versionamento: Git]:::distribuzione
+        DIST[Piattaforma: GitHub Pages]:::distribuzione
     end
 
-    %% Connessioni del Flusso Logico
-    ID --> SRC & META & IMG
-    SRC & META --> MAIN_REV
-    
-    %% main.py collega la fase 3 e la fase 5
-    MAIN_REV --> |Testo normalizzato e dati| MAIN_PROD
-    
-    MAIN_PROD --> |Generazione diretta JSON| OUT_META
-    MAIN_PROD --> |Richiama via subprocess| PANDOC
-    
-    CSS & TEX --> |Stili applicati| PANDOC
+    %% Connessioni Logiche
+    ID --> SRC & META
+    SRC --> MAIN_REV
+    META --> OUT_META
+    MAIN_REV --> PANDOC
+    STILI --> PANDOC
     PANDOC --> OUT_DOC
-    
     OUT_DOC & OUT_META --> DIST
 
-    %% Stili dei nodi per leggibilità (Colori pastello ad alto contrasto)
+    %% Stili dei nodi per leggibilità
     classDef ideazione fill:#f3e5f5,stroke:#8e24aa,stroke-width:2px,color:#000
     classDef acquisizione fill:#e3f2fd,stroke:#1e88e5,stroke-width:2px,color:#000
     classDef revisione fill:#e8f5e9,stroke:#43a047,stroke-width:2px,color:#000
