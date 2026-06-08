@@ -10,100 +10,66 @@ Nella repository sono presenti gli output editoriali generati automaticamente (P
 
 ## Struttura delle Cartelle
 
-* **`01_Sorgenti/`**: File sorgenti (`input.md`, `metadati.yaml`, `copertina.png`).
-* **`02_Stili/`**: Fogli di stile (`epub.css` e asset grafici).
-* **`03_Script/`**: Logica di sistema (`main.py`).
-* **`04_Output/`**: File generati (PDF, EPUB, ONIX, Schema.org).
-* **`05_webook/site/`**: File per la pubblicazione Web (`index.html` e asset).
+* **`01_Sorgenti/`**: File di partenza inseriti dall'autore (`input.md`, `metadati.yaml`, `copertina.png`).
+* **`02_Stili/`**: Regole grafiche e di impaginazione (`epub.css`).
+* **`03_Script/`**: Il "motore" del progetto (`main.py`).
+* **`04_Output/`**: I documenti e i dati generati automaticamente (PDF, EPUB, ONIX, Schema.org).
+* **`05_webook/site/`**: I file pronti per il sito web (`index.html`).
 
 ## Analisi e Scopo dei File Generati
 
 ### File di Metadati (in `04_Output/`)
-* **`output_onix.json`**: Mappatura standard ONIX per la comunicazione commerciale editoriale (librerie, distributori).
-* **`output_schema_org.json`**: JSON-LD per l'indicizzazione semantica (Rich Snippets Google).
+* **`output_onix.json`**: File che descrive il libro (titolo, autore, prezzo) secondo lo standard per le librerie e i distributori.
+* **`output_schema_org.json`**: File che aiuta motori di ricerca come Google a capire di cosa parla il libro.
 
 ### File di Contenuto (in `04_Output/` e `05_webook/site/`)
-* **`output.pdf`**: Formato editoriale a pagina fissa per stampa professionale.
-* **`output.epub`**: Formato e-book fluido con CSS dedicato per e-reader.
-* **`index.html`**: Web-Book interattivo, completo di glossario, navigazione e indice cliccabile.
+* **`output.pdf`**: Formato per la stampa tradizionale.
+* **`output.epub`**: Formato per la lettura su e-reader (es. Kindle, Kobo).
+* **`index.html`**: Il libro in formato sito web interattivo.
 
 ## Il Flusso del Processo Editoriale
 
-Il progetto automatizza le **6 fasi canoniche della produzione editoriale** adottando un approccio di *Single Source Publishing*. 
+Il progetto segue le **6 fasi tipiche dell'editoria**, ma le automatizza in modo digitale. Il vero protagonista di questo processo è lo script **`main.py`** (scritto in linguaggio Python), che fa da "direttore dei lavori": legge i documenti grezzi, li corregge, crea i dati aggiuntivi e comanda gli altri programmi per creare i file finali.
 
-In questa architettura, lo script **`main.py`** (scritto in Python 3) svolge il ruolo di **Orchestratore Centrale**. Non si limita a una singola operazione, ma funge da vero e proprio motore software che unisce, elabora e smista i dati lungo tutto il ciclo di vita del progetto:
+Ecco come si svolge il processo passo dopo passo:
 
-1. **Ideazione:** Definizione della tematica globale "One Health" e progettazione logica del volume.
-2. **Acquisizione dei contenuti:** Raccolta dei materiali di partenza all'interno della cartella `01_Sorgenti/`. Il testo e la struttura sono scritti in `input.md`, mentre le informazioni strutturate dell'opera sono racchiuse in `metadati.yaml`.
-3. **Revisione e redazione (Gestita da `main.py`):** Lo script apre il file `input.md` ed effettua una trasformazione automatica del testo. Applica filtri di pulizia tipografica e inietta dinamicamente i marcatori per i collegamenti ipertestuali del glossario, generando una sorgente pulita e validata.
-4. **Progettazione grafica:** Vengono predisposti i fogli di stile esterni (come `epub.css`) e i modelli di impaginazione per la stampa, pronti per essere agganciati ai convertitori.
-5. **Produzione (Orchestrata da `main.py`):** Lo script esegue ed automatizza le operazioni di compilazione finale agendo su due fronti:
-    * **Generazione Metadati:** Legge il file `metadati.yaml` e scrive direttamente i file JSON di distribuzione commerciale (`output_onix.json` e `output_schema_org.json`).
-    * **Generazione Documenti:** Pilota l'applicazione esterna `Pandoc` passandogli il testo d'ingresso modificato e gli stili grafici per produrre in un unico passaggio i file `output.pdf`, `output.epub` e il sito web `index.html`.
-6. **Distribuzione:** I file generati vengono caricati sul server remoto e pubblicati automaticamente tramite la piattaforma di hosting `GitHub Pages`.
+1. **Ideazione:** Si decide il tema ("One Health") e si progetta la struttura del libro.
+2. **Acquisizione dei contenuti:** L'autore scrive il testo nel file `input.md` e inserisce le informazioni del libro nel file `metadati.yaml`.
+3. **Revisione e redazione:** Entra in gioco `main.py`. Lo script legge il testo di `input.md` e fa una pulizia automatica: corregge gli spazi, sistema la formattazione e collega automaticamente le parole chiave al glossario, preparando un testo perfetto.
+4. **Progettazione grafica:** Si definisce l'aspetto visivo modificando il file `epub.css` (per i colori e i font su schermo) e impostando le regole per la pagina stampata.
+5. **Produzione:** Lo script `main.py` fa il lavoro finale. Prima legge il file YAML per generare i metadati JSON (`output_onix.json` e `output_schema_org.json`). Subito dopo, "chiama" il programma di conversione **Pandoc**, passandogli il testo pulito e la grafica, per fargli generare in automatico i tre formati di lettura: `output.pdf`, `output.epub` e `index.html`.
+6. **Distribuzione:** I file finiti vengono caricati sulla piattaforma GitHub Pages, che li rende visibili a tutti su internet.
 
-### Spiegazione dello Schema Logico
-Il diagramma sottostante evidenzia visivamente come lo script `main.py` si posizioni al centro del flusso di lavoro. Lo schema mostra chiaramente come i file di input vengano assorbiti dall'orchestratore, il quale si fa carico sia della fase di pulizia testuale sia del coordinamento dei programmi di compilazione (`Pandoc`) e della scrittura autonoma dei metadati, fino alla messa online finale del progetto.
+### Schema Visivo del Processo
+
+Lo schema qui sotto riassume le 6 fasi in ordine sequenziale, indicando per ogni blocco l'azione svolta, gli strumenti tecnologici utilizzati e i file esatti su cui si sta lavorando.
 
 ```mermaid
 graph TD
-    %% Fasi del Processo Editoriale canoniche
-    subgraph F1 [1. Ideazione]
-        ID[Pianificazione Opera: One Health]:::ideazione
-    end
-
-    subgraph F2 [2. Acquisizione dei contenuti]
-        SRC[Testo: input.md]:::acquisizione
-        META[Dati: metadati.yaml]:::acquisizione
-        IMG[Risorse: copertina.png]:::acquisizione
-    end
-
-    subgraph FLUSSO_CENTRALE [Il Ruolo Centrale di main.py]
-        MAIN[Orchestratore Centrale: main.py]:::orchestratore
-        F3[3. Revisione e Redazione<br/>Esecuzione pulizia automatica testo]:::revisione
-        F5[5. Produzione Automatica<br/>Generazione e smistamento output]:::produzione
-    end
-
-    subgraph F4 [4. Progettazione grafica]
-        STILI[Fogli di Stile: epub.css & regole stampa]:::grafica
-    end
-
-    subgraph OUTPUT [Risultati della Produzione]
-        PANDOC[Programma Esterno: Pandoc]:::produzione
-        OUT_META[File Metadati:<br/>output_onix.json<br/>output_schema_org.json]:::produzione
-        OUT_DOC[File Editoriali:<br/>output.pdf<br/>output.epub<br/>index.html]:::produzione
-    end
-
-    subgraph F6 [6. Distribuzione]
-        DIST[Piattaforma Web: GitHub Pages]:::distribuzione
-    end
-
-    %% Connessioni del Flusso Logico coordinato da main.py
-    ID --> SRC & META & IMG
+    %% Definizione delle Fasi in sequenza logica
+    F1[<b>1. Ideazione</b><br/>Definizione del tema e della struttura<br/>Progetto: One Health]
     
-    %% Ingestione dati in main.py
-    SRC & META & IMG --> MAIN
+    F2[<b>2. Acquisizione dei contenuti</b><br/>Raccolta dei materiali di partenza<br/>File: input.md, metadati.yaml, copertina.png]
     
-    %% Ciclo interno di main.py (Fase 3 e Fase 5)
-    MAIN -->|Esegue| F3
-    F3 -->|Restituisce testo pulito| F5
+    F3[<b>3. Revisione e redazione</b><br/>Script: main.py<br/>Azione: Pulizia automatica del testo e inserimento glossario]
     
-    %% Output diretti di main.py ed evocazione Pandoc
-    F5 -->|Scrittura diretta JSON| OUT_META
-    F5 -->|Comanda e pilota| PANDOC
+    F4[<b>4. Progettazione grafica</b><br/>Definizione dell'aspetto visivo<br/>File: epub.css e stili di stampa]
     
-    %% Integrazione della grafica in Pandoc
-    STILI -->|Applicazione stili visivi| PANDOC
-    PANDOC --> OUT_DOC
+    F5[<b>5. Produzione</b><br/>Script: main.py + Programma: Pandoc<br/>File testuali generati: output.pdf, output.epub, index.html<br/>Metadati generati: output_onix.json, output_schema_org.json]
     
-    %% Rilascio sul Web
-    OUT_DOC & OUT_META --> DIST
+    F6[<b>6. Distribuzione</b><br/>Pubblicazione online<br/>Piattaforma: GitHub Pages]
 
-    %% Classi di stile ad alto contrasto per i nodi
-    classDef ideazione fill:#f3e5f5,stroke:#8e24aa,stroke-width:2px,color:#000
-    classDef acquisizione fill:#e3f2fd,stroke:#1e88e5,stroke-width:2px,color:#000
-    classDef orchestratore fill:#fff9c4,stroke:#fbc02d,stroke-width:3px,color:#000
-    classDef revisione fill:#e8f5e9,stroke:#43a047,stroke-width:2px,color:#000
-    classDef grafica fill:#fff3e0,stroke:#fb8c00,stroke-width:2px,color:#000
-    classDef produzione fill:#ffebee,stroke:#e53935,stroke-width:2px,color:#000
-    classDef distribuzione fill:#eceff1,stroke:#546e7a,stroke-width:2px,color:#000
+    %% Flusso sequenziale
+    F1 --> F2
+    F2 --> F3
+    F3 --> F4
+    F4 --> F5
+    F5 --> F6
+
+    %% Stili dei nodi per massima chiarezza e leggibilità
+    style F1 fill:#f9f9f9,stroke:#333,stroke-width:2px,color:#000
+    style F2 fill:#e3f2fd,stroke:#1e88e5,stroke-width:2px,color:#000
+    style F3 fill:#e8f5e9,stroke:#43a047,stroke-width:2px,color:#000
+    style F4 fill:#fff3e0,stroke:#fb8c00,stroke-width:2px,color:#000
+    style F5 fill:#ffebee,stroke:#e53935,stroke-width:2px,color:#000
+    style F6 fill:#eceff1,stroke:#546e7a,stroke-width:2px,color:#000
