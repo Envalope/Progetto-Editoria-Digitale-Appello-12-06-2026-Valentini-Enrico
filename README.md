@@ -27,65 +27,59 @@ Nella repository sono presenti gli output editoriali generati automaticamente (P
 * **`output.epub`**: Formato e-book fluido con CSS dedicato per e-reader.
 * **`index.html`**: Web-Book interattivo, completo di glossario, navigazione e indice cliccabile.
 
-## Analisi e Spiegazione del Flusso di Processo
+## Il Flusso del Processo Editoriale
 
-Il processo di generazione è un flusso automatizzato (*Single Source Publishing*) che trasforma i contenuti grezzi in prodotti editoriali complessi. Il ciclo di vita del progetto si articola nelle seguenti fasi tecnologiche:
+Il progetto segue rigorosamente le **6 fasi del processo di produzione editoriale**, implementate in un'ottica di automazione digitale (*Single Source Publishing*):
 
-1. **Acquisizione Dati (Input):** Il flusso inizia prelevando i dati grezzi. Si utilizzano file leggeri e facilmente leggibili: il linguaggio di marcatura `Markdown` per il testo e il formato `YAML` per i parametri di configurazione.
-2. **Elaborazione e Normalizzazione:** Il cuore logico è gestito da `Python 3` tramite lo script `main.py`. Lo script utilizza la libreria nativa `re` per applicare le Espressioni Regolari (RegEx), ripulendo il testo e automatizzando l'inserimento degli apici per il glossario.
-3. **Generazione Metadati:** Parallelamente alla pulizia del testo, `Python` struttura le informazioni editoriali esportandole nel formato universale `JSON`, mappandole secondo gli standard richiesti dal mercato (`ONIX` per i cataloghi B2B, `Schema.org` per i motori di ricerca).
-4. **Compilazione Core:** Il testo normalizzato viene passato a `Pandoc`, un programma da riga di comando che funge da convertitore universale (Universal Document Converter). Pandoc orchestra la creazione dei vari formati di output.
-5. **Rendering Multi-Formato:**
-   * Per l'output destinato alla stampa (`PDF`), Pandoc richiama il programma `XeLaTeX`, un motore tipografico avanzato capace di gestire impaginazioni complesse.
-   * Per gli output destinati agli schermi (`EPUB` e `HTML`), vengono applicate le tecnologie web standard `HTML5` e `CSS3` per garantire fluidità e adattabilità del layout.
-6. **Distribuzione:** I prodotti finiti vengono tracciati dal sistema di versionamento `Git` e infine pubblicati e hostati gratuitamente tramite i server di `GitHub Pages`.
+1. **Ideazione:** Scelta del tema ("One Health"), definizione dell'architettura dell'informazione e delle necessità del progetto.
+2. **Acquisizione dei contenuti:** Raccolta dei materiali di partenza. Per garantire la massima separazione tra contenuto e presentazione, si utilizzano file puri: `Markdown` per il testo e `YAML` per i parametri di base e i metadati.
+3. **Revisione e redazione:** Il nucleo logico del sistema interviene sul testo. Uno script `Python` utilizza le Espressioni Regolari (RegEx) per normalizzare la sintassi, correggere le anomalie e iniettare automaticamente gli apici per il collegamento al glossario.
+4. **Progettazione grafica:** Definizione delle regole di impaginazione e stile per i diversi output tramite tecnologie standard: `CSS3` per il web e l'e-book, e `LaTeX` per l'output destinato alla stampa.
+5. **Produzione:** È la fase di compilazione vera e propria. Il programma `Pandoc` prende in carico il testo revisionato e i file di stile, delegando a `XeLaTeX` la generazione del PDF e producendo in parallelo il Web-Book HTML e l'EPUB. Contemporaneamente, vengono generati i file `JSON` (ONIX e Schema.org).
+6. **Distribuzione:** I prodotti editoriali finali (testo, grafica, metadati) vengono inviati al server tramite `Git` e resi disponibili al pubblico globale tramite la piattaforma di hosting `GitHub Pages`.
 
 ### Schema di Processo Dettagliato
 
 ```mermaid
 graph TD
-    %% Definizione Classi di Stile
-    classDef fase fill:#ffffff,stroke:#000,stroke-width:2px,color:#000
-    classDef tech fill:#f4f4f4,stroke:#333,stroke-width:1px,color:#333,stroke-dasharray: 5 5
+    %% Fasi del Processo Editoriale
+    subgraph F1 [1. Ideazione]
+        ID[Definizione Tema e Architettura]:::ideazione
+    end
 
-    %% Nodi del Diagramma
-    F1["Fase 1: Input Dati<br/>(Contenuti e Configurazioni)"]:::fase
-    T1["Linguaggi: Markdown (.md), YAML (.yaml)"]:::tech
-    
-    F2["Fase 2: Elaborazione e Pulizia Testuale<br/>(Esecuzione script main.py)"]:::fase
-    T2["Linguaggio: Python 3<br/>Tecnologia: RegEx (modulo 're')"]:::tech
-    
-    F3["Fase 3: Generazione Metadati Strutturati<br/>(output_onix, output_schema_org)"]:::fase
-    T3["Formato: JSON<br/>Standard: ONIX, Schema.org"]:::tech
-    
-    F4["Fase 4: Compilazione e Smistamento<br/>(Conversione formati)"]:::fase
-    T4["Programma: Pandoc<br/>(Universal Document Converter)"]:::tech
-    
-    F5A["Fase 5A: Rendering Stampa<br/>(Creazione output.pdf)"]:::fase
-    T5A["Programma: XeLaTeX<br/>(Motore di composizione tipografica)"]:::tech
-    
-    F5B["Fase 5B: Rendering Digitale<br/>(Creazione index.html, output.epub)"]:::fase
-    T5B["Linguaggi: HTML5, CSS3<br/>(Fogli di stile personalizzati)"]:::tech
-    
-    F6["Fase 6: Hosting e Distribuzione<br/>(Messa online)"]:::fase
-    T6["Tecnologie: Git, GitHub Pages"]:::tech
+    subgraph F2 [2. Acquisizione dei contenuti]
+        SRC[Testo Sorgente<br/>Linguaggio: Markdown]:::acquisizione
+        META[Parametri e Configurazione<br/>Linguaggio: YAML]:::acquisizione
+    end
 
-    %% Collegamenti tra Nodi
-    F1 --- T1
-    T1 --> F2
-    
-    F2 --- T2
-    T2 --> F3
-    T2 --> F4
-    
-    F3 --- T3
-    
-    F4 --- T4
-    T4 --> F5A
-    T4 --> F5B
-    
-    F5A --- T5A
-    F5B --- T5B
-    
-    T5A --> F6
-    T5B --> F6
+    subgraph F3 [3. Revisione e redazione]
+        REV[Normalizzazione RegEx e Glossario<br/>Tecnologia: Python 3]:::revisione
+    end
+
+    subgraph F4 [4. Progettazione grafica]
+        GRAF[Definizione Stili e Layout<br/>Linguaggi: CSS3, LaTeX]:::grafica
+    end
+
+    subgraph F5 [5. Produzione]
+        PROD_DOC[Compilazione Output: PDF, HTML, EPUB<br/>Tecnologie: Pandoc, XeLaTeX]:::produzione
+        PROD_META[Generazione Metadati Strutturati<br/>Linguaggio: JSON / ONIX, Schema.org]:::produzione
+    end
+
+    subgraph F6 [6. Distribuzione]
+        DIST[Versioning e Hosting Pubblico<br/>Tecnologie: Git, GitHub Pages]:::distribuzione
+    end
+
+    %% Connessioni del Flusso Logico
+    ID --> SRC & META
+    SRC & META --> REV
+    REV --> GRAF
+    GRAF --> PROD_DOC & PROD_META
+    PROD_DOC & PROD_META --> DIST
+
+    %% Stili dei nodi per leggibilità (Colori pastello ad alto contrasto)
+    classDef ideazione fill:#f3e5f5,stroke:#8e24aa,stroke-width:2px,color:#000
+    classDef acquisizione fill:#e3f2fd,stroke:#1e88e5,stroke-width:2px,color:#000
+    classDef revisione fill:#e8f5e9,stroke:#43a047,stroke-width:2px,color:#000
+    classDef grafica fill:#fff3e0,stroke:#fb8c00,stroke-width:2px,color:#000
+    classDef produzione fill:#ffebee,stroke:#e53935,stroke-width:2px,color:#000
+    classDef distribuzione fill:#eceff1,stroke:#546e7a,stroke-width:2px,color:#000
