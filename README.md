@@ -18,7 +18,6 @@ Nella repository sono presenti gli output editoriali generati automaticamente (P
   * `bibliografia.bib` (File per la gestione delle citazioni e della bibliografia)
 * **`02_Stili/`**: Regole grafiche e di impaginazione.
   * `epub.css` (Stile per e-book e sito web)
-  * `latex-template.tex` (Regole tipografiche per la stampa)
 * **`03_Script/`**: Il motore di automazione del progetto.
   * `main.py` (Script principale)
 * **`04_Output/`**: I documenti e i metadati generati in automatico.
@@ -31,17 +30,17 @@ Nella repository sono presenti gli output editoriali generati automaticamente (P
 
 ## Il Flusso del Processo Editoriale
 
-Il progetto segue le 6 fasi classiche dell'editoria digitale, automatizzando tutto il flusso di lavoro partendo da un unico set di file (*Single Source Publishing*). Il cuore del progetto è lo script `main.py`, che gestisce l'elaborazione dei testi e la generazione dei file finali.
+Il progetto segue le 6 fases classiche dell'editoria digitale, automatizzando tutto il flusso di lavoro partendo da un unico set di file (*Single Source Publishing*). Il cuore del progetto è lo script `main.py`, che gestisce l'elaborazione dei testi e la generazione dei file finali.
 
 Ecco nel dettaglio come i file interagiscono in ogni singola fase:
 
 1. **Ideazione:** Scelta dell'argomento principale del progetto, in questo caso il tema "One Health".
 2. **Acquisizione dei contenuti:** Tutto il materiale di partenza viene inserito nella cartella `01_Sorgenti/`. Troviamo il testo in `input.md`, i dati del libro in `metadati.yaml`, i riferimenti per le citazioni in `bibliografia.bib` e l'immagine in `copertina.png`.
 3. **Revisione e Redazione:** In questa fase lo script `main.py` fa il lavoro di correzione automatica. Legge il file di testo grezzo (`input.md`) e lo prepara per i passaggi successivi. Nello specifico, si occupa di sistemare la formattazione (come rimuovere spazi extra) e cerca le parole chiave nel testo per trasformarle automaticamente in link cliccabili che rimandano al glossario. Alla fine di questo passaggio, otteniamo un testo "pulito" e perfetto per essere impaginato.
-4. **Progettazione Grafica:** Prepariamo i file nella cartella `02_Stili/`. Il file `epub.css` definisce i colori e i font per il sito web e l'EPUB, mentre `latex-template.tex` imposta le regole di impaginazione per la stampa.
+4. **Progettazione Grafica:** Prepariamo la cartella `02_Stili/`. Il file `epub.css` definisce l'aspetto visivo (colori, regole di impaginazione e font) che verrà applicato sia al sito web (Web-Book) sia all'e-book.
 5. **Produzione:** In questa fase lo script `main.py` fa due cose in parallelo:
    * Legge i dati da `metadati.yaml` e crea da solo i file `output_onix.json` e `output_schema_org.json` (che finiscono in `04_Output/`).
-   * Lancia il programma `Pandoc`, passandogli il testo pulito, l'immagine di copertina, la grafica (`epub.css` e `latex-template.tex`) e le citazioni (`bibliografia.bib`). `Pandoc` unisce tutto e genera i tre file finali: `output.pdf`, `output.epub` e `index.html`.
+   * Lancia il programma `Pandoc`, passandogli il testo pulito, l'immagine di copertina, il file di stile `epub.css` e le citazioni (`bibliografia.bib`). `Pandoc` unisce tutto e genera i tre file finali: `output.pdf`, `output.epub` e `index.html`.
 6. **Distribuzione:** Tutti i file pronti vengono caricati su GitHub tramite Git e pubblicati online utilizzando GitHub Pages.
 
 ### Schema Visivo del Processo
@@ -73,17 +72,15 @@ graph TD
     
     %% Fogli di stile a supporto
     subgraph Stili [4. Progettazione Grafica: Cartella 02_Stili]
-        CSS[Stili digitali:<br/>epub.css]
-        TEX[Stili stampa:<br/>latex-template.tex]
+        CSS[Stile visivo:<br/>epub.css]
     end
     
     %% 5. PRODUZIONE
-    MAIN -->|Crea automaticamente i dati| META[5. Produzione Metadati:<br/>output_onix.json<br/>output_schema_org.json]
+    MAIN -->|Crea automaticamente i dati| META[5. Production Metadati:<br/>output_onix.json<br/>output_schema_org.json]
     
     MAIN -->|Invia testo pulito, dati e copertina| PANDOC((5. Compilazione Automatica:<br/>Programma Pandoc))
     
     CSS --> PANDOC
-    TEX --> PANDOC
     
     subgraph Output [5. File Finali Generati: 04_Output / 05_webook]
         PDF[Documento per la stampa:<br/>output.pdf]
@@ -104,7 +101,7 @@ graph TD
     classDef script fill:#fff3cd,stroke:#ffc107,stroke-width:3px,color:#000
     classDef output fill:#e2e3e5,stroke:#6c757d,stroke-width:2px,color:#000
     
-    class ID,MD,YAML,BIB,IMG,CSS,TEX fase
+    class ID,MD,YAML,BIB,IMG,CSS fase
     class MAIN,PANDOC script
     class META,PDF,EPUB,WEB output
     class OUT fase
