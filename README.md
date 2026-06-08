@@ -10,10 +10,11 @@ Nella repository sono presenti gli output editoriali generati automaticamente (P
 
 ## Tecnologie Utilizzate
 
-Il progetto segue un workflow di *Single Source Publishing*:
-* **Linguaggi:** Markdown (Contenuti), YAML (Metadati), JSON (Interoperabilità).
-* **Automazione & Logica:** Python (Scripting, RegEx per pulizia testo, Serializzazione metadati).
-* **Motori di Rendering:** Pandoc (Conversione formati), XeLaTeX (Tipografia avanzata per PDF), CSS (Stile Web/E-book).
+Il progetto adotta un approccio di *Single Source Publishing*:
+* **Contenuti:** Markdown.
+* **Metadati:** YAML (Configurazione) e JSON (Output strutturato).
+* **Automazione & Logica:** Python (Scripting, RegEx per la pulizia del testo).
+* **Motori di Rendering:** Pandoc (Conversione universale), XeLaTeX (Tipografia avanzata per PDF), CSS (Stile Web ed E-book).
 * **Versioning & Web:** Git, GitHub, GitHub Pages.
 
 ## Struttura delle Cartelle
@@ -24,46 +25,42 @@ Il progetto segue un workflow di *Single Source Publishing*:
 * **`04_Output/`**: File generati (PDF, EPUB, ONIX, Schema.org).
 * **`05_webook/site/`**: File per la pubblicazione Web.
 
-## Analisi e Scopo dei File Generati
+## Analisi e Spiegazione del Flusso di Processo
 
-### Metadati (Generati in `04_Output/`)
-* **`output_onix.json`**: Mappatura secondo standard internazionale ONIX per librerie e distributori.
-* **`output_schema_org.json`**: Dati strutturati JSON-LD per l'indicizzazione semantica (Rich Snippets).
+Il processo di generazione è un flusso automatizzato che trasforma contenuti grezzi in prodotti editoriali complessi. Il flusso si divide in quattro macro-fasi:
 
-### Contenuti (Generati in `04_Output/` e `05_webook/site/`)
-* **`output.pdf`**: Formato a pagina fissa (via XeLaTeX) per stampa professionale.
-* **`output.epub`**: Formato fluido con CSS dedicato per e-reader.
-* **`index.html`**: Web-Book interattivo, completo di glossario, navigazione e indice.
+1. **Ingestione (Input):** Il sistema acquisisce i dati grezzi. Le tecnologie chiave sono i file di testo Markdown e YAML, che garantiscono portabilità e leggibilità.
+2. **Elaborazione Logica (Python/RegEx):** Lo script `main.py` normalizza il testo utilizzando le Espressioni Regolari (RegEx) per la pulizia dei caratteri e inietta i glossari automaticamente. In questa fase, vengono anche generati i metadati strutturati JSON (ONIX e Schema.org) per la distribuzione B2B e la SEO.
+3. **Conversione e Rendering (Pandoc/XeLaTeX):** Il motore Pandoc funge da "ponte" universale. A seconda del formato target, il sistema richiama XeLaTeX (per la composizione tipografica del PDF ad alta qualità) o applica fogli di stile CSS customizzati (per EPUB e Web-Book).
+4. **Distribuzione (GitHub Pages):** Il prodotto finito viene hostato e distribuito via web.
 
-## Flusso di Processo Dettagliato
+### Schema di Processo Dettagliato
 
 ```mermaid
 graph TD
-    %% Definizione Stili ad alto contrasto
-    classDef process fill:#ffffff,stroke:#333,stroke-width:2px,color:#000
-    classDef tech fill:#f4f4f4,stroke:#666,stroke-width:1px,color:#333
-    classDef output fill:#e0e0e0,stroke:#000,stroke-width:2px,color:#000
+    %% Definizione Classi per Stile e Contrasto
+    classDef input fill:#f9f9f9,stroke:#000,stroke-width:2px,color:#000
+    classDef process fill:#e1f5fe,stroke:#01579b,stroke-width:2px,color:#000
+    classDef tech fill:#fff3e0,stroke:#e65100,stroke-width:1px,color:#000
+    classDef output fill:#e8f5e9,stroke:#2e7d32,stroke-width:2px,color:#000
 
-    %% Passaggi
-    Start[Input Sorgenti] --> Prep[Preparazione Metadati & Testo]
-    Prep --> Python((Python Logic))
+    %% Diagramma del Flusso
+    Start[Input Sorgenti<br/>Markdown & YAML]:::input
     
-    Python --> RegEx[Normalizzazione & RegEx]
-    Python --> MetaGen[Generazione JSON: ONIX & Schema.org]
+    Prep[Pulizia RegEx & Iniezione Glossario<br/>Tecnologia: Python]:::process
     
-    RegEx --> Pandoc((Pandoc Engine))
+    Meta[Generazione Metadati<br/>Tecnologia: JSON/ONIX/Schema.org]:::tech
     
-    Pandoc --> XeLaTeX[Motore XeLaTeX]
-    Pandoc --> CSS[Stili CSS]
+    Compiler[Compilazione Formati<br/>Tecnologia: Pandoc]:::process
     
-    XeLaTeX --> PDF[Generazione PDF]
-    CSS --> HTML[Generazione Web-Book]
-    CSS --> EPUB[Generazione EPUB]
+    RenderPDF[Motore XeLaTeX<br/>Output: PDF]:::tech
+    RenderWEB[Stili CSS<br/>Output: Web-Book/EPUB]:::tech
     
-    PDF & HTML & EPUB --> Deploy[Pubblicazione GitHub Pages]
+    Finish[Pubblicazione<br/>Tecnologia: GitHub Pages]:::output
 
-    %% Assegnazione Stili
-    class Start,Prep,Deploy output
-    class Python,Pandoc process
-    class RegEx,MetaGen,XeLaTeX,CSS tech
-    class PDF,HTML,EPUB output
+    Start --> Prep
+    Prep --> Meta
+    Prep --> Compiler
+    Compiler --> RenderPDF
+    Compiler --> RenderWEB
+    RenderPDF & RenderWEB --> Finish
