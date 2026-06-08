@@ -139,8 +139,8 @@ def save_to_file(data, file_path, format="json"):  #funzione per salvataggio fin
 # 2. CODICE ORIGINALE DEL PROF (Pandoc)
 # ==============================================================================
 
-# Funzione originale del prof
-def convert_with_pandoc(input_files, output_file, metadata, pdf_engine=None):#alcuni parametri li prendiamo in input
+# Funzione originale del prof (modificata solo per accettare il parametro opzionale toc)
+def convert_with_pandoc(input_files, output_file, metadata, pdf_engine=None, toc=False):#alcuni parametri li prendiamo in input
     command = [ #costruiamo il nostro comando che è una lista
         'pandoc', *input_files,  # Passa tutti i file di input, l'asterisco dice di prendere i valori dalla lista
         '--metadata-file', metadata, #opzione richiesta da pandoc
@@ -151,6 +151,9 @@ def convert_with_pandoc(input_files, output_file, metadata, pdf_engine=None):#al
     # Gestisci la conversione in PDF con un motore specificato (opzionale)
     if pdf_engine: #nel caso della generazione del PDF,infatti c'è l'if
         command.extend(['--pdf-engine', pdf_engine]) #voglio che sia eseguito il comando con il nome pdf engine passato
+    
+    if toc:
+        command.append('--toc')
 
     # Esegui il comando Pandoc con la libreria subprocess che gli passo il comando
     subprocess.run(command, check=True, cwd=DIR_SORGENTI)
@@ -162,6 +165,7 @@ def convert_epub_con_stile(input_files, output_file, metadata, cover_image=None)
         'pandoc', *input_files, 
         '--metadata-file', metadata,
         '--output', output_file,
+        '--toc', # Indice nell'EPUB
         '--citeproc',
         '--css', '../02_Stili/epub.css' 
     ]
@@ -181,7 +185,7 @@ def generate_webbook(input_file):
     output_path = os.path.join(DIR_WEB, "index.html")
     command = ['pandoc', input_file, '--metadata-file', 'metadati.yaml', '--output', output_path, '--toc', '--standalone', '--css', 'css/style.css', '--citeproc']
     subprocess.run(command, check=True, cwd=DIR_SORGENTI)
-    print(f"Web-Book generato: {output_path}")
+    print(f"Web-Book generato in: {output_path}")
 
 # ==============================================================================
 # MAIN 
@@ -207,11 +211,9 @@ def main():
 
     for format in output_formats: #con il ciclo for possiamo gestire gli output
         if format == 'pdf':
-            convert_with_pandoc([nome_file_processato], os.path.join(DIR_OUTPUT, 'output.pdf'), 'metadati.yaml', pdf_engine='xelatex')
+            convert_with_pandoc([nome_file_processato], os.path.join(DIR_OUTPUT, 'output.pdf'), 'metadati.yaml', pdf_engine='xelatex', toc=True)
         elif format == 'html':
             generate_webbook(nome_file_processato)
-        elif format == 'docx':
-            convert_with_pandoc([nome_file_processato], os.path.join(DIR_OUTPUT, 'output.docx'), 'metadati.yaml')
         elif format == 'epub':
             convert_epub_con_stile([nome_file_processato], os.path.join(DIR_OUTPUT, 'output.epub'), 'metadati.yaml', cover_image=COPERTINA_IMG)
 
