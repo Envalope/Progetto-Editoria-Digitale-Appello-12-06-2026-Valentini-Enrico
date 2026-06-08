@@ -8,66 +8,53 @@ Nella repository sono inoltre presenti gli output editoriali generati automatica
 
 ![Copertina One Health](./01_Sorgenti/copertina.png)
 
-## Struttura e Flusso di Lavoro
+## Tecnologie Utilizzate
 
-L'intero progetto è gestito da un'architettura automatizzata (Single Source Publishing). 
-Utilizzando lo script Python `main.py` (nella cartella `03_Script`), il sistema preleva il testo sorgente `input.md` e la configurazione da `metadati.yaml` (situati in `01_Sorgenti`). 
+Il progetto adotta un approccio di *Single Source Publishing* basato sulle seguenti tecnologie:
+* **Linguaggi:** Markdown (linguaggio di marcatura per i contenuti), Python (automazione della pipeline logica), YAML (gestione dei metadati), JSON (output strutturato per l'interoperabilità), CSS (stile visivo).
+* **Motori di Rendering:** Pandoc (conversione universale tra formati), XeLaTeX (motore di tipografia per il PDF).
+* **Automazione:** Espressioni Regolari (RegEx) per la pulizia del testo e iniezione automatica del glossario.
+* **Versionamento & Distribuzione:** Git (controllo versione), GitHub (hosting), GitHub Pages (pubblicazione web).
 
-Il processo si articola in tre flussi principali:
-1. **Normalizzazione:** Lo script esegue una pulizia delle espressioni regolari (RegEx) e inietta dinamicamente gli apici del glossario nel file Markdown.
-2. **Generazione Metadati:** Vengono creati i file JSON strutturati (`output_onix.json` e `output_schema_org.json`) che fungono da carta d'identità digitale dell'opera.
-3. **Compilazione:** Pandoc (con XeLaTeX o CSS personalizzati) compila i file di output (PDF, EPUB e Web-Book).
+## Processo di Lavoro
 
+L'intero flusso è gestito da un sistema automatizzato che trasforma le sorgenti grezze in pubblicazioni editoriali professionali. Il sistema gestisce cicli di normalizzazione, generazione di metadati e compilazione multi-formato, consentendo sia la revisione locale che il rilascio in produzione.
 
-### Struttura delle Cartelle
-01_Sorgenti/: Contiene il nucleo informativo primario (input.md, metadati.yaml, copertina.png).
+## Struttura delle Cartelle
 
-02_Stili/: Ospita i fogli di stile (es. epub.css per l'e-book).
+* **`01_Sorgenti/`**: Contiene il nucleo informativo primario (`input.md`, `metadati.yaml`, `copertina.png`).
+* **`02_Stili/`**: Ospita i fogli di stile (es. `epub.css` per l'e-book).
+* **`03_Script/`**: La componente logica del sistema contenente `main.py`.
+* **`04_Output/`**: Directory generata automaticamente destinata ai formati di distribuzione.
+* **`05_webook/site/`**: Spazio dedicato alla distribuzione del Web-Book interattivo.
 
-03_Script/: La componente logica del sistema contenente main.py.
+## Analisi e Scopo dei File Generati
 
-04_Output/: Directory generata automaticamente destinata ai formati di distribuzione.
-
-05_webook/site/: Spazio dedicato alla distribuzione del Web-Book interattivo.
-
-Analisi e Scopo dei File Generati
-File di Metadati (Generati in 04_Output/)
+### File di Metadati (Generati in `04_Output/`)
 Questi file sono fondamentali per la reperibilità e la distribuzione del dossier:
 
-output_onix.json:
+* **`output_onix.json`**: Mappatura degli attributi dell'opera secondo lo standard internazionale ONIX. Utilizzato per la comunicazione commerciale B2B.
+* **`output_schema_org.json`**: Serializzazione JSON-LD conforme al vocabolario di Schema.org per favorire l'indicizzazione semantica (Rich Snippets).
 
-Scopo: Mappatura degli attributi dell'opera secondo lo standard internazionale ONIX (ONline Information eXchange). Viene utilizzato per la comunicazione commerciale B2B (librerie, distributori, cataloghi editoriali).
+### File di Contenuto (Generati in `04_Output/` e `05_webook/site/`)
+* **`output.pdf`**: Formato editoriale a pagina fissa (XeLaTeX) per stampa professionale.
+* **`output.epub`**: Formato e-book fluido con CSS dedicato per e-reader.
+* **`index.html`**: Web-Book interattivo, completo di glossario, navigazione e indice cliccabile.
 
-Generazione: Creato dallo script main.py tramite la funzione convert_to_onix, che estrae le informazioni dal file metadati.yaml e le struttura nel formato richiesto.
+## Schema di Processo Dettagliato
 
-output_schema_org.json:
-
-Scopo: Serializzazione JSON-LD conforme al vocabolario semantico di Schema.org. Serve a "spiegare" ai motori di ricerca che il contenuto è un libro, permettendo di ottenere risultati più visibili (Rich Snippets).
-
-Generazione: Creato dallo script main.py tramite la funzione convert_to_schema_org, che mappa i dati di metadati.yaml nelle proprietà semantiche di Book per il Web.
-
-File di Contenuto (Generati in 04_Output/ e 05_webook/site/)
-output.pdf: Formato editoriale a pagina fissa (XeLaTeX) per stampa o consultazione statica.
-
-output.epub: Formato e-book fluido (con copertina e CSS dedicato).
-
-index.html: Web-Book interattivo hostabile, completo di glossario e indice cliccabile.
-
-### Schema di Generazione
 ```mermaid
-graph TD
-    Input[input.md + metadati.yaml]
-    Script(main.py)
-    Meta[Metadati: ONIX & Schema.org]
-    Pandoc[Pandoc]
-    OutPDF[Cartella 04_Output: PDF, EPUB]
-    OutWeb[Cartella 05_webook/site: HTML]
+graph LR
+    A[Scelta Temi/Sorgenti] --> B[Estrazione Sorgenti]
+    B --> C((Processamento Python))
+    
+    C --> D[Modifica File .md]
+    C --> E[Definizione Grafica .yaml]
+    C --> F[Server Locale Test]
+    
+    D & E & F --> G((Compilazione Pandoc))
+    G --> H{Caricamento Finale<br/>GitHub Pages}
 
-    Input --> Script
-    Script --> Meta
-    Script --> Pandoc
-    Pandoc --> OutPDF
-    Pandoc --> OutWeb
-
-    style Script fill:#f9f,stroke:#333,stroke-width:2px
-    style Pandoc fill:#bbf,stroke:#333,stroke-width:2px
+    style C fill:#f9f,stroke:#333
+    style G fill:#f9f,stroke:#333
+    style H fill:#e1f5fe,stroke:#01579b
