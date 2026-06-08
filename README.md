@@ -41,76 +41,37 @@ Il progetto segue le 6 fasi dell'editoria digitale automatizzando il flusso da u
 
 ### Schema Visivo del Processo
 
-Il seguente diagramma espande le 6 fasi editoriali, mostrando esattamente come i file sorgenti attraversino lo script e i compilatori fino a diventare un prodotto finito.
+Il seguente diagramma mostra in modo compatto come i file sorgenti attraversino lo script e i compilatori fino a diventare un prodotto finito, seguendo le 6 fasi editoriali.
 
 ```mermaid
-graph TD
-    %% FASE 1
-    subgraph Fase 1 [1. Ideazione]
-        TEMA[Scelta del Tema:<br/>One Health]
-    end
-
-    %% FASE 2
-    subgraph Fase 2 [2. Acquisizione dei Contenuti]
-        MD_IN[Testo sorgente:<br/>input.md]
-        YAML_IN[Dati e configurazioni:<br/>metadati.yaml]
-    end
-
-    %% FASE 3
-    subgraph Fase 3 [3. Revisione e Redazione]
-        MAIN((Orchestratore:<br/>Script main.py))
-        PULIZIA[Modifica file .md:<br/>Pulizia testo automatica<br/>e iniezione glossario]
-    end
-
-    %% FASE 4
-    subgraph Fase 4 [4. Progettazione Grafica]
-        STILI[Applicazione fogli di stile:<br/>epub.css per Web-Book/EPUB<br/>e regole per PDF]
-    end
-
-    %% FASE 5
-    subgraph Fase 5 [5. Produzione]
-        JSON_OUT[Metadati generati:<br/>output_onix.json<br/>output_schema_org.json]
-        PANDOC((Compilazione finale:<br/>Pandoc & XeLaTeX))
-        DOCS[Documenti Editoriali:<br/>output.pdf, output.epub]
-        WEB[Sito Web-Book:<br/>index.html]
-    end
-
-    %% FASE 6
-    subgraph Fase 6 [6. Distribuzione]
-        GITHUB{Caricamento finale:<br/>GitHub Pages}
-    end
-
-    %% FLUSSO DEI COLLEGAMENTI
-    TEMA --> MD_IN & YAML_IN
+graph LR
+    %% 1. IDEAZIONE & 2. ACQUISIZIONE
+    ID[1. Ideazione:<br/>Tema One Health] --> IN[2. Acquisizione:<br/>input.md, metadati.yaml]
     
-    %% Acquisizione verso il Main
-    MD_IN --> MAIN
-    YAML_IN --> MAIN
+    %% 3. REVISIONE
+    IN --> MAIN((3. Revisione testuale:<br/>Script main.py))
     
-    %% Il Main smista le operazioni
-    MAIN -->|Legge metadati.yaml| JSON_OUT
-    MAIN -->|Elabora input.md| PULIZIA
+    %% 4. GRAFICA
+    MAIN -->|Testo pulito| GRAF[4. Progettazione Grafica:<br/>Applica epub.css]
     
-    %% Dal testo pulito si passa alla grafica
-    PULIZIA --> STILI
+    %% 5. PRODUZIONE (Divisa tra main.py per i dati e Pandoc per i documenti)
+    MAIN -->|Estrae dati JSON| META[5. Produzione Metadati:<br/>output_onix.json<br/>output_schema_org.json]
+    GRAF --> PANDOC((5. Produzione Documenti:<br/>Compilatore Pandoc))
     
-    %% Invio al compilatore
-    STILI -->|Testo pulito + CSS| PANDOC
+    PANDOC --> DOCS[Documenti:<br/>output.pdf, output.epub]
+    PANDOC --> WEB[Sito Web-Book:<br/>index.html]
     
-    %% Generazione dei file finali
-    PANDOC --> DOCS
-    PANDOC --> WEB
-    
-    %% Rilascio online
-    JSON_OUT --> GITHUB
-    DOCS --> GITHUB
-    WEB --> GITHUB
+    %% 6. DISTRIBUZIONE
+    META --> OUT{6. Distribuzione:<br/>GitHub Pages}
+    DOCS --> OUT
+    WEB --> OUT
 
-    %% STILI DEI NODI (Colori per differenziare documenti, azioni e fine)
-    classDef file fill:#e3f2fd,stroke:#1e88e5,stroke-width:2px,color:#000
-    classDef script fill:#fff9c4,stroke:#fbc02d,stroke-width:3px,color:#000
-    classDef fine fill:#eceff1,stroke:#546e7a,stroke-width:3px,color:#000
+    %% STILI COMPATTI
+    classDef fase fill:#f8f9fa,stroke:#adb5bd,stroke-width:2px,color:#000
+    classDef script fill:#fff3cd,stroke:#ffc107,stroke-width:3px,color:#000
+    classDef output fill:#e2e3e5,stroke:#6c757d,stroke-width:2px,color:#000
     
-    class TEMA,MD_IN,YAML_IN,PULIZIA,STILI,JSON_OUT,DOCS,WEB file
+    class ID,IN,GRAF fase
     class MAIN,PANDOC script
-    class GITHUB fine
+    class META,DOCS,WEB output
+    class OUT fase
