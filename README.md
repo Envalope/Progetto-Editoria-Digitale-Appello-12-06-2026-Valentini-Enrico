@@ -20,42 +20,53 @@ Il processo si articola in tre flussi principali:
 
 ### Schema di Generazione
 
-[input.md] + [metadati.yaml]
-       |
-       v
-  ( main.py ) ----------------> [ Metadati: ONIX & Schema.org ]
-       |
-       +-- Pulizia RegEx 
-       +-- Iniezione Glossario
-       |
-       v
-   [ Pandoc ]
-       |
-       +---> Cartella 04_Output/  (PDF, EPUB)
-       |
-       +---> Cartella 05_webook/site/ (Web-Book HTML)
+```mermaid
+graph TD
+    Input[input.md + metadati.yaml]
+    Script(main.py)
+    Meta[Metadati: ONIX & Schema.org]
+    Pandoc[Pandoc]
+    OutPDF[Cartella 04_Output: PDF, EPUB]
+    OutWeb[Cartella 05_webook/site: HTML]
 
-## Struttura delle Cartelle
+    Input --> Script
+    Script --> Meta
+    Script --> Pandoc
+    Pandoc --> OutPDF
+    Pandoc --> OutWeb
 
-* **`01_Sorgenti/`**: Contiene il nucleo informativo primario (`input.md`, `metadati.yaml`, `copertina.png`).
-* **`02_Stili/`**: Ospita i fogli di stile (es. `epub.css` per l'e-book).
-* **`03_Script/`**: La componente logica del sistema contenente `main.py`.
-* **`04_Output/`**: Directory generata automaticamente destinata ai formati di distribuzione.
-* **`05_webook/site/`**: Spazio dedicato alla distribuzione del Web-Book interattivo.
+    style Script fill:#f9f,stroke:#333,stroke-width:2px
+    style Pandoc fill:#bbf,stroke:#333,stroke-width:2px
+Struttura delle Cartelle
+01_Sorgenti/: Contiene il nucleo informativo primario (input.md, metadati.yaml, copertina.png).
 
-## Analisi e Scopo dei File Generati
+02_Stili/: Ospita i fogli di stile (es. epub.css per l'e-book).
 
-### File di Metadati (Generati in `04_Output/`)
+03_Script/: La componente logica del sistema contenente main.py.
+
+04_Output/: Directory generata automaticamente destinata ai formati di distribuzione.
+
+05_webook/site/: Spazio dedicato alla distribuzione del Web-Book interattivo.
+
+Analisi e Scopo dei File Generati
+File di Metadati (Generati in 04_Output/)
 Questi file sono fondamentali per la reperibilità e la distribuzione del dossier:
 
-* **`output_onix.json`**: 
-    * **Scopo**: Mappatura degli attributi dell'opera secondo lo standard internazionale ONIX (ONline Information eXchange). Viene utilizzato per la comunicazione commerciale B2B (librerie, distributori, cataloghi editoriali).
-    * **Generazione**: Creato dallo script `main.py` tramite la funzione `convert_to_onix`, che estrae le informazioni dal file `metadati.yaml` e le struttura nel formato richiesto.
-* **`output_schema_org.json`**: 
-    * **Scopo**: Serializzazione JSON-LD conforme al vocabolario semantico di Schema.org. Serve a "spiegare" ai motori di ricerca che il contenuto è un libro, permettendo di ottenere risultati più visibili (Rich Snippets).
-    * **Generazione**: Creato dallo script `main.py` tramite la funzione `convert_to_schema_org`, che mappa i dati di `metadati.yaml` nelle proprietà semantiche di `Book` per il Web.
+output_onix.json:
 
-### File di Contenuto (Generati in `04_Output/` e `05_webook/site/`)
-* **`output.pdf`**: Formato editoriale a pagina fissa (XeLaTeX) per stampa o consultazione statica.
-* **`output.epub`**: Formato e-book fluido (con copertina e CSS dedicato).
-* **`index.html`**: Web-Book interattivo hostabile, completo di glossario e indice cliccabile.
+Scopo: Mappatura degli attributi dell'opera secondo lo standard internazionale ONIX (ONline Information eXchange). Viene utilizzato per la comunicazione commerciale B2B (librerie, distributori, cataloghi editoriali).
+
+Generazione: Creato dallo script main.py tramite la funzione convert_to_onix, che estrae le informazioni dal file metadati.yaml e le struttura nel formato richiesto.
+
+output_schema_org.json:
+
+Scopo: Serializzazione JSON-LD conforme al vocabolario semantico di Schema.org. Serve a "spiegare" ai motori di ricerca che il contenuto è un libro, permettendo di ottenere risultati più visibili (Rich Snippets).
+
+Generazione: Creato dallo script main.py tramite la funzione convert_to_schema_org, che mappa i dati di metadati.yaml nelle proprietà semantiche di Book per il Web.
+
+File di Contenuto (Generati in 04_Output/ e 05_webook/site/)
+output.pdf: Formato editoriale a pagina fissa (XeLaTeX) per stampa o consultazione statica.
+
+output.epub: Formato e-book fluido (con copertina e CSS dedicato).
+
+index.html: Web-Book interattivo hostabile, completo di glossario e indice cliccabile.
