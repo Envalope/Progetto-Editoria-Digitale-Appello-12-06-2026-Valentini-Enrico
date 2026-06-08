@@ -17,7 +17,7 @@ Nella repository sono presenti gli output editoriali generati automaticamente (P
   * `copertina.png` (L'immagine di copertina)
   * `bibliografia.bib` (File per la gestione delle citazioni e della bibliografia)
 * **`02_Stili/`**: Regole grafiche e di impaginazione.
-  * `epub.css` (Stile per e-book e sito web)
+  * `epub.css` (Stile per l'e-book)
 * **`03_Script/`**: Il motore di automazione del progetto.
   * `main.py` (Script principale)
 * **`04_Output/`**: I documenti e i metadati generati in automatico.
@@ -27,20 +27,21 @@ Nella repository sono presenti gli output editoriali generati automaticamente (P
   * `output_schema_org.json` (Metadati per i motori di ricerca)
 * **`05_webook/site/`**: La cartella dedicata al sito statico interattivo.
   * `index.html` (Web-Book)
+  * `style.css` (Foglio di stile specifico per il sito web)
 
 ## Il Flusso del Processo Editoriale
 
-Il progetto segue le 6 fases classiche dell'editoria digitale, automatizzando tutto il flusso di lavoro partendo da un unico set di file (*Single Source Publishing*). Il cuore del progetto è lo script `main.py`, che gestisce l'elaborazione dei testi e la generazione dei file finali.
+Il progetto segue le 6 fasi classiche dell'editoria digitale, automatizzando tutto il flusso di lavoro partendo da un unico set di file (*Single Source Publishing*). Il cuore del progetto è lo script `main.py`, che gestisce l'elaborazione dei testi e la generazione dei file finali.
 
 Ecco nel dettaglio come i file interagiscono in ogni singola fase:
 
 1. **Ideazione:** Scelta dell'argomento principale del progetto, in questo caso il tema "One Health".
 2. **Acquisizione dei contenuti:** Tutto il materiale di partenza viene inserito nella cartella `01_Sorgenti/`. Troviamo il testo in `input.md`, i dati del libro in `metadati.yaml`, i riferimenti per le citazioni in `bibliografia.bib` e l'immagine in `copertina.png`.
 3. **Revisione e Redazione:** In questa fase lo script `main.py` fa il lavoro di correzione automatica. Legge il file di testo grezzo (`input.md`) e lo prepara per i passaggi successivi. Nello specifico, si occupa di sistemare la formattazione (come rimuovere spazi extra) e cerca le parole chiave nel testo per trasformarle automaticamente in link cliccabili che rimandano al glossario. Alla fine di questo passaggio, otteniamo un testo "pulito" e perfetto per essere impaginato.
-4. **Progettazione Grafica:** Prepariamo la cartella `02_Stili/`. Il file `epub.css` definisce l'aspetto visivo (colori, regole di impaginazione e font) che verrà applicato sia al sito web (Web-Book) sia all'e-book.
+4. **Progettazione Grafica:** Prepariamo la grafica e gli stili. Il file `epub.css` definisce l'aspetto visivo che verrà applicato all'e-book, mentre vengono gestite le regole per la creazione di `style.css` che darà il layout al sito web finale.
 5. **Produzione:** In questa fase lo script `main.py` fa due cose in parallelo:
    * Legge i dati da `metadati.yaml` e crea da solo i file `output_onix.json` e `output_schema_org.json` (che finiscono in `04_Output/`).
-   * Lancia il programma `Pandoc`, passandogli il testo pulito, l'immagine di copertina, il file di stile `epub.css` e le citazioni (`bibliografia.bib`). `Pandoc` unisce tutto e genera i tre file finali: `output.pdf`, `output.epub` e `index.html`.
+   * Lancia il programma `Pandoc`, passandogli il testo pulito, l'immagine di copertina, i fogli di stile e le citazioni (`bibliografia.bib`). Il sistema unisce tutto e genera i file finali: compila `output.pdf` e `output.epub` nella cartella di output, e crea la cartella `site` contenente il Web-Book `index.html` affiancato dal suo foglio di stile `style.css`.
 6. **Distribuzione:** Tutti i file pronti vengono caricati su GitHub tramite Git e pubblicati online utilizzando GitHub Pages.
 
 ### Schema Visivo del Processo
@@ -72,20 +73,20 @@ graph TD
     
     %% Fogli di stile a supporto
     subgraph Stili [4. Progettazione Grafica: Cartella 02_Stili]
-        CSS[Stile visivo:<br/>epub.css]
+        CSS[Stile visivo:<br/>epub.css e regole sito]
     end
     
     %% 5. PRODUZIONE
-    MAIN -->|Crea automaticamente i dati| META[5. Production Metadati:<br/>output_onix.json<br/>output_schema_org.json]
+    MAIN -->|Crea automaticamente i dati| META[5. Produzione Metadati:<br/>output_onix.json<br/>output_schema_org.json]
     
     MAIN -->|Invia testo pulito, dati e copertina| PANDOC((5. Compilazione Automatica:<br/>Programma Pandoc))
     
     CSS --> PANDOC
     
-    subgraph Output [5. File Finali Generati: 04_Output / 05_webook]
+    subgraph Output [5. File Finali Generati: 04_Output / 05_webook/site]
         PDF[Documento per la stampa:<br/>output.pdf]
         EPUB[Documento digitale:<br/>output.epub]
-        WEB[Sito Web-Book:<br/>index.html]
+        WEB[Sito Web-Book:<br/>index.html e style.css]
     end
     
     PANDOC --> PDF & EPUB & WEB
