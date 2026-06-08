@@ -1,0 +1,105 @@
+/* epub.css - Stile Classico, Elegante e Nativo per E-book */
+
+body {
+    font-family: "Georgia", "Times New Roman", serif;
+    line-height: 1.5;
+    text-align: justify;
+    margin: 5%; /* Margini fluidi che si adattano allo schermo */
+}
+
+/* ==========================================================================
+   FIX PER TITOLI (Sovrascrive il blu scuro forzato in input.md)
+   ========================================================================== */
+#title-block-header .title,
+#title-block-header .subtitle,
+#title-block-header .author,
+#title-block-header .date,
+h1, h2, h3, h4, h5, h6 {
+    color: inherit !important; 
+}
+
+/* Titoli eleganti e puliti */
+h1, #title-block-header .title {
+    font-size: 2em;
+    font-weight: normal;
+    text-align: center;
+    margin-top: 2em;
+    margin-bottom: 1em;
+    padding-bottom: 0.2em;
+    border-bottom: 1px solid #777777; /* Linea neutra */
+    page-break-before: always; /* Forza il salto pagina come nei capitoli veri */
+    letter-spacing: 1px;
+}
+
+h2, #title-block-header .subtitle {
+    font-size: 1.4em;
+    margin-top: 1.5em;
+    margin-bottom: 0.8em;
+    font-style: italic; /* Stile tipico dei sottotitoli editoriali */
+}
+
+#title-block-header .author, 
+#title-block-header .date {
+    text-align: center;
+    margin-top: 0.5em;
+}
+
+/* Stile classico dei paragrafi nei libri: rientro iniziale e nessuno spazio tra paragrafi */
+p {
+    text-indent: 1.5em;
+    margin-bottom: 0;
+    margin-top: 0;
+}
+
+/* Il primo paragrafo dopo un titolo non ha mai il rientro (regola editoriale standard) */
+h1 + p, h2 + p, h3 + p, #title-block-header + p {
+    text-indent: 0;
+}
+
+/* Link discreti che ereditano il colore scelto dall'app di lettura */
+a {
+    text-decoration: none;
+    border-bottom: 1px dotted;
+    color: inherit;
+}
+
+sup a {
+    border-bottom: none;
+    font-weight: bold;
+    font-size: 0.8em;
+}
+
+/* --- INDICE (TOC) --- */
+#TOC {
+    margin-top: 2em;
+    margin-bottom: 2em;
+    page-break-after: always;
+}
+
+#TOC ul {
+    list-style-type: none;
+    padding-left: 1em;
+}
+
+#TOC li {
+    margin-bottom: 0.5em;
+}
+
+#TOC a {
+    border-bottom: none;
+}
+
+/* --- BIBLIOGRAFIA E GLOSSARIO --- */
+.references, .csl-entry {
+    font-size: 0.85em;
+    margin-bottom: 0.8em;
+    text-indent: -1.5em; /* Hanging indent (rientro sporgente) tipico della bibliografia */
+    padding-left: 1.5em;
+}
+
+h1#bibliografia, h2#bibliografia {
+    font-size: 1.5em;
+    border-bottom: none;
+    text-align: left;
+    font-weight: bold;
+}

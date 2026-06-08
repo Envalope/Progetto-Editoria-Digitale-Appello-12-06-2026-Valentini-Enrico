@@ -1,0 +1,32 @@
+distribuzione:
+  onix:
+    title: "One Health & Futuro Digitale: Dossier Strategico"
+    contributor:
+      primary_author: "Enrico Valentini"
+      other_authors: []
+    publisher: "Progetto di Editoria Digitale - Università degli Studi di Milano"
+    publication_date: "2026-06-11"
+    isbn: "978-88-00000-00-1"
+    audience: "Giornalisti, comunicatori, operatori dell'informazione"
+    format: "Digital Whitepaper"
+    price: "0.00"
+  schema_org:
+    name: "One Health & Futuro Digitale: Dossier Strategico"
+    author:
+      - name: "Enrico Valentini"
+    datePublished: "2026-06-11"
+    publisher:
+      name: "Progetto di Editoria Digitale"
+    isbn: "978-88-00000-00-1"
+    genre: "Dossier Analitico"
+    language: "it"
+    inLanguage: "it"
+    format: "PDF/HTML"
+    toc: true
+gestione_documentale:
+  input_files:
+    - "input.md"
+  output_formats:
+    - "pdf"
+    - "html"
+    - "epub"
