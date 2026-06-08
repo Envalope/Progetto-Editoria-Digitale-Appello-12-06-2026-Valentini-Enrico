@@ -15,6 +15,7 @@ Nella repository sono presenti gli output editoriali generati automaticamente (P
   * `input.md` (Il testo dell'opera)
   * `metadati.yaml` (Le informazioni editoriali)
   * `copertina.png` (L'immagine di copertina)
+  * `bibliografia.bib` (File per la gestione delle citazioni e della bibliografia)
 * **`02_Stili/`**: Regole grafiche e di impaginazione.
   * `epub.css` (Stile per e-book e sito web)
   * `latex-template.tex` (Regole tipografiche per la stampa)
@@ -33,12 +34,12 @@ Nella repository sono presenti gli output editoriali generati automaticamente (P
 Il progetto segue le 6 fasi dell'editoria digitale automatizzando il flusso da una singola sorgente (*Single Source Publishing*). Lo script **`main.py`** agisce come orchestratore centrale delle operazioni:
 
 1. **Ideazione:** Scelta del tema ("One Health").
-2. **Acquisizione:** I contenuti base e le immagini vengono raccolti nella cartella `01_Sorgenti/`.
+2. **Acquisizione:** I contenuti base, i dati strutturati, l'immagine e la bibliografia vengono raccolti nella cartella `01_Sorgenti/`.
 3. **Revisione e Redazione (`main.py`):** Lo script preleva `input.md` e lo pulisce automaticamente, correggendo gli spazi e inserendo i riferimenti per il glossario.
 4. **Progettazione Grafica:** Vengono preparati i file `epub.css` e `latex-template.tex` per istruire il compilatore su come colorare e impaginare i testi.
 5. **Produzione (`main.py` + `Pandoc`):** Lo script `main.py` svolge due compiti:
    * Estrae i dati da `metadati.yaml` e genera da solo i due file JSON.
-   * Chiama in aiuto il programma `Pandoc`, passandogli il testo pulito, la copertina e i fogli di stile. `Pandoc` crea simultaneamente `output.pdf`, `output.epub` e `index.html`.
+   * Chiama in aiuto il programma `Pandoc`, passandogli il testo pulito, la copertina, il file `bibliografia.bib` per la risoluzione delle citazioni e i fogli di stile. `Pandoc` crea simultaneamente `output.pdf`, `output.epub` e `index.html`.
 6. **Distribuzione:** Tutti i file finiti vengono caricati su GitHub e pubblicati automaticamente online.
 
 ### Schema Visivo del Processo
@@ -54,16 +55,18 @@ graph TD
     subgraph Sorgenti [2. Acquisizione: Cartella 01_Sorgenti]
         MD[Testo base:<br/>input.md]
         YAML[Dati editoriali:<br/>metadati.yaml]
+        BIB[Citazioni:<br/>bibliografia.bib]
         IMG[Immagine:<br/>copertina.png]
     end
     
-    ID --> MD & YAML & IMG
+    ID --> MD & YAML & BIB & IMG
     
     %% 3. REVISIONE E ORCHESTRAZIONE
     MAIN((3. Revisione e Automazione:<br/>Script main.py))
     
     MD --> MAIN
     YAML --> MAIN
+    BIB --> MAIN
     IMG --> MAIN
     
     %% Fogli di stile a supporto
@@ -75,7 +78,7 @@ graph TD
     %% 5. PRODUZIONE
     MAIN -->|Estrae e scrive dati| META[5. Produzione Metadati:<br/>output_onix.json<br/>output_schema_org.json]
     
-    MAIN -->|Invia testo normalizzato e copertina| PANDOC((5. Compilazione Automatica:<br/>Programma Pandoc))
+    MAIN -->|Invia testo normalizzato, dati e copertina| PANDOC((5. Compilazione Automatica:<br/>Programma Pandoc))
     
     CSS --> PANDOC
     TEX --> PANDOC
@@ -99,7 +102,7 @@ graph TD
     classDef script fill:#fff3cd,stroke:#ffc107,stroke-width:3px,color:#000
     classDef output fill:#e2e3e5,stroke:#6c757d,stroke-width:2px,color:#000
     
-    class ID,MD,YAML,IMG,CSS,TEX fase
+    class ID,MD,YAML,BIB,IMG,CSS,TEX fase
     class MAIN,PANDOC script
     class META,PDF,EPUB,WEB output
     class OUT fase
