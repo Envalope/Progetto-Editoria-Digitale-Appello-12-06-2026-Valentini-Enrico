@@ -1,82 +1,77 @@
 ---
 title: "Relazione del progetto d'esame di Editoria Digitale"
-author: "Enrico Valentini"
+author: "Enrico Valentini 994092"
 date: "Giugno 2026"
-institute: "Università degli Studi di Milano - CdL in Informatica Musicale"
+institute: "Università degli Studi di Milano"
 course: "Editoria Digitale"
 tags: ["Single Source Publishing", "Pandoc", "Automazione", "Python", "One Health"]
-version: "1.5"
+version: "0.1"
 kind: "Document"
 bibliography: "bibliografia.bib"
 csl: "IEEE.csl"
 ---
 
-<img src="../minerva.jpg" alt="Logo UNIMI" width="100" height="100" />
+<img src="../minerva.jpg" alt="Logo UNIMI" width="400" height="500" />
 
 # One Health & Futuro Digitale: Dossier Strategico
 Analisi multidisciplinare su Salute, Clima, IA e Disinformazione per i professionisti dell'informazione
 
 ## Introduzione
 
-Il presente documento illustra in modo dettagliato l'ideazione, l'analisi dei requisiti e lo sviluppo pratico di un flusso editoriale automatizzato applicato alla pubblicazione digitale multicanale. Lo scopo principale del progetto risiede nella pianificazione e nella creazione assistita di un "Dossier Strategico" incentrato su tematiche scientifiche di forte attualità. L'opera è strutturata specificamente per rispondere alle stringenti esigenze operative di categorie professionali quali giornalisti, redattori web, blogger e divulgatori scientifici, offrendo loro un compendio informativo chiaro, verificato e facilmente consultabile durante lo svolgimento delle attività lavorative quotidiane.
+Il presente documento descrive l'ideazione e lo sviluppo di un flusso editoriale completamente automatizzato per la pubblicazione digitale. L'obiettivo del progetto è la creazione di un "Dossier Strategico" su tematiche scientifiche di grande attualità, pensato per fornire a giornalisti, redattori web e divulgatori informazioni chiare, verificate e facili da consultare nel loro lavoro quotidiano.
 
-L'intera infrastruttura di gestione documentale è stata sviluppata implementando il paradigma del *Single Source Publishing* (SSP). Questo approccio metodologico prevede che l'intero contenuto testuale e informativo risieda all'interno di un unico file sorgente scritto in formato Markdown, mantenendo il testo puro completamente separato dai suoi successivi attributi di formattazione o impaginazione visiva. Per orchestrare l'intera pipeline di trasformazione e conversione dei dati è stato implementato uno script centralizzato in linguaggio Python 3. Questo applicativo elabora il file sorgente, applica filtri di arricchimento semantico coordinando al contempo le istruzioni del convertitore universale Pandoc.
+L'intero progetto si basa sul principio del *Single Source Publishing* (SSP). Questo significa che tutto il contenuto del dossier si trova in un unico file di testo scritto in formato Markdown, separato da qualsiasi logica grafica. Per far funzionare l'automazione, è stato sviluppato uno script in Python che elabora questo testo e guida il convertitore Pandoc. Avviando lo script, il sistema genera in automatico tre formati finali: un sito web statico (Web-Book in HTML), un e-book (EPUB) e un documento PDF pronto per la stampa. Allo stesso tempo, lo script estrae le informazioni descrittive sull'opera (i metadati) nei formati standard ONIX e Schema.org.
 
-Grazie a questa architettura, l'esecuzione di un singolo comando permette al sistema di generare in modo del tutto automatico tre formati finali di distribuzione indipendenti e complementari: un sito web statico (Web-Book in HTML), un e-book in formato EPUB e un documento PDF ad alta risoluzione ottimizzato per la stampa cartacea. Parallelamente alla compilazione dei formati di lettura, lo script provvede all'estrazione, alla mappatura e alla scrittura dei metadati descrittivi dell'opera secondo gli standard internazionali ONIX e Schema.org. I codici sorgente, le istruzioni di compilazione e le logiche di sistema impiegate derivano direttamente dagli esempi e dalle strutture analizzati durante le lezioni del corso. Tali componenti sono stati studiati, personalizzati e riassemblati per funzionare in sequenza logica, dimostrando sul piano pratico come l'automazione digitale possa ridurre drasticamente i tempi di rilascio ed eliminare i tipici errori di copiatura manuale dei dati.
+È importante sottolineare che i codici, i comandi di conversione e le logiche utilizzate per costruire questa automazione sono esattamente quelli forniti dal docente e illustrati nei materiali didattici del corso. Questi codici sono stati studiati, riadattati e riassemblati per funzionare in sequenza all'interno di questo specifico flusso di lavoro, dimostrando sul campo l'efficacia degli strumenti presentati a lezione.
 
 ## Ideazione 
 
 ### Tema
-Per la definizione del nucleo tematico del dossier, l'indagine si è focalizzata sulle questioni scientifiche più complesse e polarizzanti della comunicazione contemporanea. Il filo conduttore dell'intera opera è identificato nel paradigma della "One Health", ovvero l'approccio integrato e multidisciplinare che riconosce come la salute degli esseri umani, la salute degli animali e la tutela degli ecosistemi naturali costituiscano un unico grande sistema indissolubilmente interconnesso. Si tratta di un ambito caratterizzato da una fortissima tendenza di attenzione da parte dei media e dell'opinione pubblica, ma costantemente esposto ai rischi legati a fenomeni di infodemia, fake news o eccessive semplificazioni giornalistiche.
+Per il contenuto del dossier è stato scelto il concetto di "One Health", ovvero l'approccio che riconosce che la salute umana, quella degli animali e l'ambiente naturale sono un unico grande sistema collegato. Si tratta di un argomento molto discusso oggi e con una forte attenzione mediatica, per il quale è fondamentale avere a disposizione un'informazione accurata e lontana dalle *fake news*.
 
-Al fine di offrire una panoramica esaustiva e fondata su prove empiriche, il dossier è stato strutturato in sette macro-capitoli di forte rilevanza sociale e scientifica:
-1. **Salute Globale:** Analisi del paradigma "One Health" e dei fattori antropici (frammentazione degli habitat, urbanizzazione) che favoriscono lo spillover virale e la diffusione delle zoonosi.
-2. **Intelligenza Artificiale:** L'integrazione dei modelli predittivi e dei sistemi di machine learning in ambito medico, con un focus critico sui problemi etici dell'opacità algoritmica ("Black Box") e dei bias nei dati clinici.
-3. **Crisi Climatica:** La decodifica degli eventi meteorologici estremi analizzati attraverso le metodologie della moderna scienza dell'attribuzione.
-4. **Agricoltura Sostenibile:** Studio della biofisica del suolo, delle tecniche rigenerative di semina diretta (*no-till*) e dei relativi cicli di sequestro del carbonio nel terreno.
-5. **Disinformazione:** Le dinamiche psicologiche e algoritmiche di diffusione delle notizie false sulle piattaforme social e le strategie di profilassi cognitiva tramite il *prebunking*.
-6. **Transizione Energetica:** La valutazione della materialità dello shifting verso le fonti rinnovabili, analizzata attraverso i costi estrattivi dei minerali critici e lo standard del *Life Cycle Assessment* (LCA).
-7. **Open Science:** La trasparenza dei dati e l'importanza dei server di preprint come risposta digitale istituzionale alla crisi di riproducibilità della ricerca scientifica contemporanea.
+Il testo è stato diviso in sette capitoli che esplorano diverse aree scientifiche:
+1. **Salute Globale:** Come i danni agli ecosistemi favoriscono la diffusione di nuove malattie (zoonosi).
+2. **Intelligenza Artificiale:** L'uso dei dati in medicina e il rischio legato ai pregiudizi (bias) degli algoritmi.
+3. **Crisi Climatica:** Come la scienza riesce ad attribuire al cambiamento climatico i singoli eventi estremi.
+4. **Agricoltura Sostenibile:** Tecniche di coltivazione, come la semina diretta, che aiutano a trattenere il carbonio nel suolo.
+5. **Disinformazione:** Come si diffondono le notizie false e come difendersi preventivamente (prebunking).
+6. **Transizione Energetica:** Qual è l'impatto reale e il ciclo di vita (LCA) delle tecnologie pulite.
+7. **Open Science:** Perché condividere i dati liberamente è fondamentale per la validità della ricerca.
 
 ### Destinatari
-Il profilo dei destinatari del prodotto editoriale è stato definito in modo analitico attraverso la metodologia delle *personas*, individuando due macro-categorie professionali caratterizzate da specifiche necessità di consultazione dei dati e inserite all'interno di scenari d'uso concreti:
+Per calibrare il linguaggio da usare e l'organizzazione dei formati, sono stati definiti due profili professionali di riferimento (*personas*), inseriti in scenari d'uso specifici:
 
-* **Persona 1: Il Redattore Web o Giornalista Digitale.** Lavora all'interno di redazioni di testate online, agenzie di stampa o blog d'informazione generalista. È caratterizzato da flussi di lavoro estremamente frenetici, scadenze temporali strette (spesso inferiori alle poche ore per la consegna di un pezzo) e dalla necessità di trattare argomenti scientifici molto complessi senza possedere un background accademico specialistico nelle discipline mediche o ambientali. Necessita di sintesi chiare, prive di gergo ultra-tecnico, ma collegate direttamente alle fonti ufficiali per poter effettuare rapidamente il fact-checking.
-  * *Scenario d'uso:* In concomitanza con un'improvvisa ondata di calore anomala, il redattore riceve l'incarico di produrre un articolo di approfondimento. Accedendo al Web-Book HTML tramite browser, trova immediatamente un'introduzione giornalistica che inquadra il problema e il riassunto strutturato di studi accademici correlati. Sfruttando i link ipertestuali diretti, può scaricare i paper scientifici originali in Open Access, blindando l'affidabilità del proprio pezzo in tempi record e senza imbattersi in paywall commerciali.
-* **Persona 2: Il Divulgatore Scientifico o Curatore di Newsletter Tematiche.** Opera come professionista indipendente, consulente, autore di podcast o formatore. Dispone di tempi di redazione più flessibili, possiede un livello di competenza medio-alto e predilige materiali fortemente strutturati, modulari e approfonditi dal punto di vista dell'organizzazione concettuale. Consulta i materiali prevalentemente in mobilità e predilige l'uso di dispositivi di lettura digitali dedicati.
-  * *Scenario d'uso:* Durante uno spostamento in treno, il divulgatore consulta il dossier in modalità offline sul proprio e-reader a inchiostro elettronico (e-ink). Utilizzando la versione EPUB, naviga agevolmente la struttura dei capitoli tramite l'indice ipertestuale cliccabile. Incontrando un termine tecnico specialistico, seleziona il collegamento ipertestuale che lo rimanda all'istante alla definizione corrispondente all'interno del glossario finale, potendo usare la struttura logica del testo come scaletta per pianificare il numero successivo della propria newsletter.
+* **Il Redattore Web:** Lavora nella redazione di un giornale online, ha scadenze molto strette e deve scrivere articoli complessi pur non avendo una laurea in materie scientifiche.
+  * *Scenario d'uso:* In caso di un'emergenza ambientale, deve scrivere un pezzo in fretta. Visita il sito web del progetto, legge un'introduzione chiara al problema e trova i riassunti di studi autorevoli. Usa i link nel testo per scaricare gratuitamente i documenti originali, verifica le informazioni e chiude l'articolo in tempo, citando fonti sicure.
+* **Il Divulgatore:** Crea newsletter, blog o corsi di formazione. Cerca materiali ben organizzati da poter studiare con calma e rielaborare in futuro.
+  * *Scenario d'uso:* Mentre viaggia in treno, legge il dossier offline sul suo e-reader. Grazie al formato EPUB, naviga agilmente tra i capitoli. Se incontra un termine tecnico, ci clicca sopra e legge la definizione nel glossario senza perdere il segno. Trovando la struttura molto chiara, decide di usarla come scaletta per la sua prossima newsletter.
 
 ### Requisiti di accettazione
-Per poter considerare il flusso di produzione e i relativi output editoriali pienamente validi e conformi agli obiettivi didattici e professionali del progetto, sono stati stabiliti e soddisfatti i seguenti requisiti di accettazione tecnici, contenutistici e organizzativi:
-
-* **Rigorosa separazione tra contenuto semantico e presentazione visiva:** Il file sorgente Markdown (`input.md`) deve contenere esclusivamente il testo puro, i titoli e i marcatori logici della struttura. È fatto assoluto divieto di inserire tag grafici locali, attributi di formattazione inline o blocchi di stile incorporati nel testo. L'intera resa estetica deve essere demandata a fogli di stile CSS esterni o a configurazioni centralizzate nel preambolo YAML, garantendo la totale indipendenza del dato testuale.
-* **Adattabilità, interoperabilità e fluidità dell'e-book:** Il formato di output EPUB deve superare senza eccezioni i test di validazione strutturale dello standard tramite l'applicativo *ePubCheck*. Dal punto di vista del design, il foglio di stile associato deve risultare privo di regole cromatiche rigide (sfondi o colori dei caratteri fissati in modo assoluto); il file deve integrarsi in modo fluido con i motori di rendering dei dispositivi di lettura, ereditando le preferenze di accessibilità impostate dall'utente e supportando in modo nativo la Modalità Notte senza generare difetti visivi o porzioni di testo illeggibili.
-* **Validità semantica e standardizzazione dei metadati:** Le informazioni descrittive dell'opera dichiarate dall'autore devono essere estratte in modo automatizzato dal sistema e formattate in file JSON strutturati e validi. Tali file devono rispondere rigorosamente alle specifiche dello standard ONIX (per l'integrazione nelle piattaforme distributive commerciali e nei cataloghi bibliotecari) e dello standard Schema.org in formato JSON-LD (per l'ottimizzazione dell'indicizzazione semantica sui motori di ricerca web).
-* **Integrità ipertestuale, bibliografica e strutturale delle directory:** Ogni richiamo citazionale inserito nel testo deve trovare l'esatta e automatica corrispondenza nel blocco delle referenze bibliografiche finali tramite l'elaborazione del file BibTeX. I collegamenti rivolti ai termini del glossario devono attivarsi in modo automatico alla prima occorrenza di ogni parola chiave all'interno del testo. Sul piano organizzativo dell'ambiente di lavoro, la directory principale `Progetto_editoria` deve ospitare nella radice solo i file di gestione generale (`README.md`, `.gitignore`), isolando l'intera documentazione d'esame (il logo `minerva.jpg`, il file `Traccia d'esame.pdf` e la cartella `Relazione` con al suo interno `relazione.md` e `relazione.pdf`) dentro la cartella dedicata `Docs`, assicurando un'architettura dei file pulita, logica e facilmente manutenibile.
+Per considerare il progetto completo e funzionante, sono stati fissati e rispettati i seguenti requisiti:
+* **Separazione tra testo e stile:** Il file Markdown sorgente deve contenere solo testo puro. Impostazioni grafiche come sfondi, colori e margini devono trovarsi esclusivamente nei file CSS esterni.
+* **Adattabilità dell'e-book:** L'EPUB deve essere fluido. Deve adattarsi alle dimensioni dello schermo di chi legge e funzionare correttamente anche se l'utente attiva la "Modalità Notte".
+* **Metadati standard:** I file JSON generati dallo script devono seguire le regole ufficiali per poter essere letti senza errori dai motori di ricerca e dai cataloghi librari.
 
 ### Canali di distribuzione
-Il flusso di lavoro è stato configurato per presidiare tre canali di distribuzione principali, applicando regole grafiche differenziate per massimizzare l'efficacia di ciascun mezzo di fruizione:
+Il progetto è stato pensato per presidiare tre canali di distribuzione diversi, ognuno con uno stile visivo adeguato e formale:
 
-1. **Canale Web (Sito Statico responsive):** L'output di riferimento è il file `index.html` posizionato nella directory del sito. L'identità visuale mira a trasmettere un senso di autorevolezza istituzionale. Tramite il foglio di stile `style.css`, viene impostato un layout a griglia pulita con una palette basata sul blu navy per i titoli e il grigio ardesia scuro per il testo, garantendo un contrasto equilibrato. L'indice generale e i riassunti dei capitoli sono racchiusi in box geometrici lineari con angoli arrotondati e ombreggiature leggere, facilitando la consultazione sia da desktop che da schermi mobile.
-2. **Canale E-Reader (E-book Marketplace):** L'output è il file `output.epub`. In questo canale la priorità è l'adattabilità. Attraverso il file `epub.css`, sono stati eliminati i colori rigidi di sfondo o di testo, limitando le regole grafiche ai soli rientri dei paragrafi e alle spaziature dei titoli. Il testo risulta così fluido e si adatta in modo naturale ai display e-ink e alle personalizzazioni del lettore.
-3. **Canale Stampa (Documento PDF):** L'output è il file `output.pdf`. Generato mediante il motore tipografico LaTeX, il documento risponde rigidamente ai canoni formali accademici: testo giustificato, margini speculari ampi per agevolare la lettura su carta, numerazione automatica, gestione delle note a piè di pagina e inserimento di interruzioni di pagina obbligatorie prima dell'inizio di ogni capitolo.
+1. **Canale Web (HTML):** Distribuito come sito statico. Lo stile (gestito dal file `style.css`) è pulito e simile a quello di un report aziendale o universitario. Sono stati usati sfondi chiari e testo scuro, racchiudendo gli indici in semplici riquadri per rendere la lettura comoda sia da PC che da telefono.
+2. **Canale E-reader (EPUB):** Ottimizzato per dispositivi a inchiostro elettronico. Lo stile dell'e-book (`epub.css`) è molto essenziale. Sono stati tolti i colori fissi, lasciando solo le regole per distanziare i paragrafi, in modo che il testo si adatti in automatico anche in caso di inversione dei colori dello schermo.
+3. **Canale Stampa (PDF):** Pensato per l'archiviazione e la stampa. L'impaginazione formale è stata lasciata al motore LaTeX, che crea in automatico un documento dall'aspetto accademico, con il testo giustificato e i margini speculari.
 
 ## Processo di Produzione
 
 ### Acquisizione dei contenuti
-La fase di acquisizione ha previsto una ricerca sistematica su repository scientifici accademici per raccogliere il compendio delle fonti. Sono stati selezionati 21 articoli scientifici di rilievo internazionale, scelti rigorosamente tra quelli provvisti di licenza Open Access per garantirne la consultabilità gratuita. Nella pianificazione del flusso, le risorse e i costi sono stati mappati in tre distinte categorie:
-* **Fonti libere a costo zero economico:** Gli articoli accademici originari e i software utilizzati (Python, Pandoc) sono open source e privi di costi di licenza.
-* **Contenuti generati automaticamente:** La formattazione della bibliografia (gestita dall'estensione `citeproc` di Pandoc) e la compilazione dei metadati ONIX e Schema.org avvengono in modo automatico tramite codice, con un costo in termini di ore-lavoro manuali pari a zero.
-* **Lavoro di redazione manuale ad alto costo di tempo:** Lo studio analitico dei singoli paper in lingua inglese e la stesura delle sintesi divulgative in lingua italiana all'interno del file `input.md` ha richiesto un considerevole lavoro di mediazione concettuale per rendere i dati accessibili a un pubblico non specializzato, rappresentando il reale investimento di tempo della fase redazionale.
+Gli articoli scientifici di base sono stati cercati sui database accademici online, scegliendo unicamente paper pubblicati con licenza Open Access. In questo modo, il "costo di acquisizione" economico delle fonti è stato nullo. 
+Dato che l'impaginazione e la creazione della bibliografia avvengono in automatico grazie al software, il costo principale del progetto, in termini di tempo, è stato il lavoro di redazione manuale: i paper in inglese sono stati studiati e riassunti in un italiano chiaro e divulgativo all'interno del file sorgente `input.md`.
 
 ### Gestione documentale
-Il flusso di gestione documentale è interamente governato dallo script orchestratore `main.py`, sviluppato per connettere in sequenza automatica le logiche e i comandi analizzati durante le lezioni del corso ed eliminare i passaggi ripetitivi:
+Il motore che fa funzionare l'intero progetto è lo script `main.py`. Questo programma automatizza le fasi del flusso documentale in modo sequenziale:
 
-1. **Inizializzazione e Lettura:** Lo script verifica l'esistenza delle cartelle nel file system, acquisisce le variabili dichiarate nel file `metadati.yaml` e carica il testo semantico in Markdown da `input.md`.
-2. **Pre-processing tramite espressioni regolari:** Sfruttando le funzioni del modulo `re` di Python, il programma scansiona il testo. Individua i termini tecnici inclusi nel dizionario del glossario e inserisce automaticamente i marcatori ipertestuali alla prima occorrenza di ciascuna parola chiave, generando il file temporaneo `input_processato.md`. Questa automazione riduce i tempi redazionali ed evita inserimenti manuali.
-3. **Estrazione dei metadati strutturati:** Le variabili dello YAML vengono elaborate e formattate dal codice in autonomia, scrivendo i file JSON conformi agli standard ONIX e Schema.org.
-4. **Allineamento della grafica web:** Tramite il modulo `shutil`, lo script crea la cartella di destinazione dei CSS del sito e vi copia fisicamente il file `style.css` prelevato dalla cartella degli stili, assicurando l'integrità del design ed evitando percorsi interrotti o link rotti.
-5. **Compilazione via Pandoc:** Lo script invoca il convertitore Pandoc passandogli il testo processato, la copertina, il database delle citazioni (`01_Sorgenti/bibliografia.bib`) e i rispettivi stili grafici, compilando simultaneamente HTML, EPUB e PDF. Al termine del processo, il file temporaneo `input_processato.md` viene rimosso dal sistema per garantire la pulizia delle directory.
+1. **Raccolta:** Lo script carica il file di testo Markdown e i dati editoriali inseriti nel file YAML.
+2. **Revisione automatica (Glossario):** Una funzione analizza il testo usando le espressioni regolari (RegEx). Cerca le parole chiave e inserisce da sola i link al glossario la prima volta che queste compaiono in un paragrafo. Questo evita di dover inserire i tag a mano.
+3. **Generazione dei metadati:** Lo script preleva le informazioni dal file YAML e crea i file JSON con i metadati pronti per i distributori.
+4. **Conversione e Produzione:** Infine, lo script avvia Pandoc per unire il testo pulito, la bibliografia e le immagini. In un solo colpo vengono generati l'HTML, l'EPUB e il PDF, associando a ciascuno il proprio foglio di stile.
 
 ```mermaid
 graph TD
@@ -87,60 +82,50 @@ graph TD
 ```
 
 ### Tecnologie adottate
-Le scelte tecnologiche sono state guidate dai principi dei formati aperti e dell'indipendenza del dato, assicurando un contributo diretto alla risoluzione degli scenari d'uso ipotizzati:
+Le tecnologie scelte hanno un ruolo pratico nel soddisfare gli scenari d'uso dei destinatari:
 
-* **Markdown (`.md`):** Consente di concentrarsi sulla semantica e sulla struttura logica dei testi, svincolando la scrittura dalle logiche di impaginazione visiva.
-* **YAML (`.yaml`):** Permette di centralizzare tutte le variabili del libro (titolo, autore, ISBN) e le direttive di compilazione in un formato testuale facilmente leggibile.
-* **Python 3:** Costituisce il motore dell'automazione, sfruttando i moduli integrati `re` per la manipolazione istantanea del testo e `shutil` per la gestione automatica dei file nel file system.
-* **Pandoc e XeLaTeX:** Pandoc opera come convertitore universale, traducendo i marcatori e formattando la bibliografia tramite l'estensione `citeproc`. Il motore *XeLaTeX* garantisce la resa tipografica del PDF gestendo con precisione i margini e l'allineamento per la stampa.
-
-| Dimensione Editoriale | Contributo per il Canale Web (HTML) | Contributo per il Canale E-Book (EPUB) |
+| Tecnologia | Contributo per il Canale Web (Scenario 1) | Contributo per il Canale E-Book (Scenario 2) |
 | --- | --- | --- |
-| **Sintassi Sorgente** | Elaborata in tag HTML semantici standard (`<h1>`, `<p>`). | Convertita nella struttura a capitoli XHTML interna all'EPUB. |
-| **Applicazione del Design** | Gestita via browser tramite `style.css`, con regole pulite e box geometrici. | Demandata a `epub.css`, fluida e priva di colori fissi per rispettare gli e-reader. |
-| **Automazione File** | Lo script copia fisicamente il foglio di stile nella directory del sito. | Lo stile viene incorporato direttamente all'interno del pacchetto da Pandoc. |
+| **Markdown** | Tradotto in tag HTML puliti per una lettura veloce da browser. | Offre una struttura modulare, perfetta per creare l'indice navigabile sull'e-reader. |
+| **Python** | Automatizza il processo, copiando i file CSS nella cartella del sito senza errori. | Assicura che tutti i link al glossario siano inseriti in modo coerente e funzionante. |
+| **Pandoc** | Traduce il file della bibliografia in note a piè di pagina perfette. | Esporta un file EPUB tecnicamente validato e pronto all'uso in mobilità. |
 
 ### Esecuzione del flusso
-Tutti i materiali, i codici sorgente completi, i fogli di stile, i database bibliografici e gli output generati sono liberamente consultabili e riproducibili accedendo al repository Git pubblico del progetto:
-* **Repository GitHub:** `https://github.com/Envalope/Progetto-Editoria-Digitale-Appello-12-06-2026-Valentini-Enrico`
+Il progetto, il codice sorgente, i materiali e la relativa documentazione sono pubblici e consultabili su GitHub. Per mantenere ordinato l'ambiente di lavoro, la struttura delle cartelle è stata organizzata in modo preciso:
+* Nella cartella principale `Progetto_editoria` si trovano solo i file fondamentali di gestione: il `README.md` (che descrive brevemente il progetto) e il file `.gitignore`. Quest'ultimo è un file tecnico molto importante che serve a indicare a Git quali file o cartelle (come i file temporanei del sistema operativo) devono essere ignorati e non caricati online.
+* È stata poi creata una cartella `Docs` per separare la documentazione generale dai codici sorgente. Al suo interno sono conservati l'immagine del logo di ateneo (`minerva.jpg`), il file delle direttive fornite dal docente (`Traccia d'esame.pdf`) e una sottocartella `Relazione` che contiene questo stesso testo in formato Markdown (`relazione.md`) e la sua versione già impaginata e compilata (`relazione.pdf`).
 
-L'intero processo di compilazione multicanale si esegue avviando lo script `main.py` posizionato all'interno della directory di lavoro.
+Per rieseguire l'intero processo di compilazione multicanale, è sufficiente avviare il file `main.py` posizionato all'interno della directory.
 
 ### Utilizzo di intelligenza artificiale generativa
-L'Intelligenza Artificiale generativa (modello Gemini) è stata integrata all'interno del flusso di gestione documentale in modo consapevole, mirato e assolutamente non massiccio, limitandone l'apporto alle sole fasi di *Progettazione Grafica* e *Revisione del Codice*.
-
-L'interazione con il modello è avvenuta secondo un approccio di prompt engineering di tipo *task-oriented*, focalizzato su obiettivi specifici:
-1. **Sintassi Python (RegEx):** Richiesta di supporto tecnico per strutturare le espressioni regolari del pre-processing, assicurando che l'iniezione automatica dei link al glossario avvenisse solo alla prima occorrenza di un termine all'interno di un paragrafo, evitando ridondanze.
-2. **Debugging dei fogli di stile CSS:** Analisi delle specifiche del formato EPUB per identificare e rimuovere i vincoli cromatici rigidi che bloccavano il corretto funzionamento della modalità notte sui dispositivi di lettura digitali.
-3. **Generazione dell'immagine di copertina:** Utilizzo dei modelli di generazione dell'IA per creare la componente grafica della copertina del dossier, impostata sul concetto visivo dell'interconnessione One Health.
-
-La validazione della qualità degli output generati dall'IA è stata eseguita attraverso un rigoroso protocollo basato su cicli di test locali, eseguendo lo script da terminale, controllando i log di errore e analizzando i risultati sui browser tramite i developer tools. L'uso della tecnologia generativa ha ridotto i tempi di sviluppo software, evidenziando tuttavia limiti nella gestione automatica dei percorsi relativi delle cartelle, corretti grazie all'intervento critico umano. La stesura dei testi e l'architettura dei contenuti rimangono il risultato esclusivo di un lavoro autonomo.
+In questo progetto, l'Intelligenza Artificiale (modello Gemini) è stata utilizzata in modo consapevole, limitato e non invasivo. Il suo intervento è stato richiesto solo per due compiti precisi di supporto: generare l'immagine usata per la copertina del dossier e fornire un aiuto per fare debugging (risolvere piccoli errori di sintassi) durante la stesura delle espressioni regolari in Python.
+Ogni suggerimento dell'IA è stato testato e validato eseguendo il codice da terminale. L'uso dell'IA ha ridotto i tempi morti di programmazione, ma tutto il ragionamento logico, la stesura dei contenuti, l'organizzazione delle cartelle e l'assemblaggio dei codici sono frutto di un lavoro di progettazione completamente personale.
 
 ## Valutazione dei risultati raggiunti
 
 ### Valutazione del flusso di produzione
-L'analisi dei risultati evidenzia il pieno soddisfacimento dei requisiti e dei casi d'uso stabiliti in fase di ideazione, mostrando miglioramenti tangibili valutati secondo i parametri del corso:
-* **(i) Riduzione dei tempi di gestione documentale:** Il tempo richiesto per la compilazione e la pubblicazione dell'intero catalogo multiformato (Web, EPUB, PDF) è sceso a meno di tre secondi complessivi dall'avvio dello script.
-* **(ii) Riduzione degli errori:** Centralizzando i testi nell'unica sorgente Markdown (`input.md`), il rischio di riscontrare contenuti disallineati o refusi non corretti tra le diverse edizioni è stato completamente azzerato.
-* **(iii) Miglioramento della qualità dei documenti:** Il sorgente Markdown risulta privo di tag grafici spuri, preservando la purezza semantica del testo. La gestione automatica tramite RegEx dei link interni elimina la presenza di riferimenti errati o orfani nel glossario.
-* **(iv) Miglioramento del livello di accezione della tecnologia:** L'aver riutilizzato e riadattato i codici forniti a lezione ha permesso di disporre di un'infrastruttura trasparente, stabile e facilmente modificabile per progetti futuri.
-* **(v) Raggiungimento di nuovi canali di distribuzione:** La separazione logica dei CSS ha permesso di coprire contemporaneamente il sito web responsive e la lettura fluida su e-reader.
-* **(vi) Soddisfacimento di nuovi scenari d'uso:** I formati generati rispondono perfettamente alle necessità delle *ampie personas* profilate, garantendo immediatezza d'uso per il redattore web e portabilità offline per il divulgatore.
+L'uso dell'automazione e del paradigma Single Source Publishing ha portato a risultati molto soddisfacenti:
+* **(i) Riduzione dei tempi:** Una volta terminato di scrivere il testo, lo script impiega meno di tre secondi per generare contemporaneamente il sito web, il PDF e l'e-book.
+* **(ii) Riduzione degli errori:** Poiché il testo risiede in un solo file (`input.md`), è impossibile correggere un refuso sul sito e dimenticarsi di farlo anche sul PDF.
+* **(iii) Miglioramento della qualità:** Il testo sorgente in Markdown rimane sempre pulito e facile da leggere, privo di blocchi di codice grafico al suo interno.
+* **(iv) Miglioramento dell'accettazione tecnologica:** Riadattare gli esempi di codice visti a lezione ha permesso di capire a fondo il processo, rendendo la scrittura dello script molto più sicura.
+* **(v, vi) Nuovi canali e scenari:** È stato possibile creare file ottimizzati sia per la lettura veloce su schermo (Scenario 1) sia per la lettura approfondita su e-reader (Scenario 2).
 
 ### Confronto con lo stato dell'arte
-* **Flusso ASIS (Metodo tradizionale manuale):** L'autore redige il testo, poi deve formattarlo e impaginarlo manualmente su Word per ottenere il PDF per la stampa. Per la pubblicazione web, deve copiare e incollare i paragrafi all'interno di un CMS (come WordPress) ricreando la struttura dei titoli. Per l'e-book, deve importare il testo in un terzo software (come Calibre) e impostare nuovamente la grafica. Qualsiasi successiva correzione ortografica richiede tre interventi manuali separati, dilatando i tempi e moltiplicando il rischio di inconsistenza dei dati.
-* **Flusso TOBE (Il sistema SSP proposto nel progetto):** L'intero contenuto risiede unicamente nel file sorgente Markdown. Ogni modifica viene eseguita una sola volta in quell'unico punto. Mandando in esecuzione lo script `main.py`, il sistema si occupa di elaborare il testo e istruire Pandoc per rigenerare istantaneamente il sito web, l'e-book, il PDF tipografico e i file dei metadati, garantendo l'allineamento automatico e immediato di tutti i canali di distribuzione con un solo comando.
+Nel metodo di lavoro tradizionale (flusso ASIS), un autore scrive su Word per ottenere il PDF, poi copia e incolla gli stessi testi dentro una piattaforma web per il sito, e infine usa un altro software (come Calibre) per creare l'e-book. In caso di un errore di battitura, bisogna aprire tre programmi diversi e perdere tempo per sistemarli tutti. 
+Nel flusso automatizzato implementato in questo progetto (TOBE), si lavora unicamente sul file in Markdown. Con un solo comando, l'automazione aggiorna simultaneamente tutti i formati senza alcun copia-incolla manuale.
 
 ### Limiti emersi
-Il sistema presenta alcune limitazioni di natura tecnica. Il workflow risente di una stretta dipendenza dall'ambiente locale, richiedendo l'installazione preventiva sulla macchina di Python 3, del convertitore Pandoc e della suite XeLaTeX. Inoltre, si riscontra una parziale discontinuità tra i modelli di formattazione: il motore LaTeX utilizzato per il PDF non è in grado di interpretare direttamente le regole grafiche scritte nei file CSS usati per le pagine web. Questo ha obbligato a gestire le direttive geometriche e i margini della pagina stampata direttamente all'interno delle configurazioni YAML del documento sorgente, determinando una parziale eccezione alla separazione totale degli stili.
+Il sistema presenta alcuni limiti tecnici. Per funzionare, questo flusso richiede l'installazione sul computer di programmi abbastanza pesanti, come Python, Pandoc e l'intera libreria LaTeX per la generazione dei PDF. 
+Inoltre, si è riscontrato un limite nella separazione tra testo e grafica: il file PDF creato da LaTeX non è in grado di leggere e interpretare i normali file CSS usati per le pagine web. Di conseguenza, le istruzioni sui margini e sull'aspetto del testo stampato sono state inserite all'inizio del file sorgente (nel blocco YAML), creando una parziale eccezione alla regola della separazione totale degli stili.
 
 ## Conclusioni
-I risultati ottenuti dimostrano che gli obiettivi definiti dai casi d'uso sono stati pienamente raggiunti. Il "Dossier Strategico" si configura come un prodotto multicanale solido, verificato e facilmente aggiornabile. L'applicazione del paradigma Single Source Publishing ha dimostrato la sua efficacia pratica, svincolando la fase di scrittura dalle logiche di impaginazione visiva. L'integrazione e il riadattamento dei codici del corso hanno permesso di strutturare un'automazione stabile, capace di valorizzare la flessibilità dei formati aperti. L'utilizzo mirato e limitato dell'Intelligenza Artificiale ha agevolato piccoli compiti di supporto grafico e sistemistico, lasciando all'autore il totale controllo e la paternità intellettuale dell'opera. Come sviluppo futuro, si prospetta il trasferimento della pipeline su server cloud (tramite GitHub Actions), per abilitare la compilazione automatica ad ogni commit sul repository remoto, rendendo il flusso del tutto indipendente dalle risorse della macchina locale.
+Gli obiettivi posti in fase di ideazione sono stati pienamente raggiunti. Il "Dossier Strategico" è uno strumento editoriale pratico, che risponde bene alle necessità delle *personas* individuate. L'approccio adottato elimina totalmente il peso e le inefficienze dell'impaginazione manuale dei documenti. Lo studio e il riadattamento dei codici forniti dal docente si sono rivelati fondamentali per costruire un sistema stabile e funzionante. In futuro, sarebbe interessante integrare questo script su server remoti (usando GitHub Actions), in modo che la generazione automatica dei file avvenga direttamente online, rendendo il sistema utilizzabile anche su computer privi dei software necessari preinstallati.
 
 ## Bibliografia e sitografia
 
-* Articoli scientifici Open Access recuperati dai database bibliografici e indicizzati nel file `bibliografia.bib`.
-* Materiale didattico del corso di Editoria Digitale (Università degli Studi di Milano). I codici, le logiche e i comandi utilizzati per l'automazione del progetto derivano dallo studio e dal riadattamento dei seguenti documenti ufficiali del docente:
+* Articoli scientifici Open Access recuperati dai database bibliografici e indicizzati all'interno del file `bibliografia.bib`.
+* Materiale didattico del corso di Editoria Digitale (Università degli Studi di Milano). I codici e le logiche utilizzati per l'automazione di questo progetto derivano dallo studio, dal riadattamento e dall'assemblaggio dei seguenti documenti ufficiali forniti dal docente:
   * *LT2-FormatiMarcatura-MarkDown.pdf*
   * *LM3-ProcessoEditoriale.pdf*
   * *LM4-FlussiLavoroEditoriale-Metadati.pdf*
