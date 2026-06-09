@@ -13,8 +13,9 @@ Nella repository sono presenti gli output editoriali generati automaticamente (P
 
 * **`README.md`**: Questo file, che contiene la descrizione generale del progetto e la documentazione del flusso di lavoro.
 * **`.gitignore`**: File di configurazione fondamentale per Git; indica al sistema quali file o intere cartelle (come file temporanei, file di log, cache o configurazioni locali dell'editor) devono essere ignorati dal controllo di versione e non caricati sul repository remoto.
-* **`Docs/`**: Cartella dedicata alla documentazione descrittiva d'esame e alle risorse correlate.
+* **`Docs/`**: Cartella dedicata alla documentazione descrittiva d'esame, ai testi di supporto e alle risorse correlate.
   * `minerva.jpg` (Il logo ufficiale dell'Università degli Studi di Milano)
+  * `Traccia d'esame.pdf` (Il documento con le linee guida, i requisiti e le specifiche del progetto fornite dal docente)
   * **`Relazione/`**: Sottocartella contenente i documenti relativi alla spiegazione del progetto.
     * `relazione.md` (La relazione dell'esame in formato di testo strutturato Markdown)
     * `relazione.pdf` (La versione PDF formattata e pronta per la lettura della relazione)
@@ -39,7 +40,7 @@ Nella repository sono presenti gli output editoriali generati automaticamente (P
 
 ## Il Flusso del Processo Editoriale
 
-Il progetto segue le 6 fases classiche dell'editoria digitale. Ho usato l'approccio *Single Source Publishing*: partendo da un unico file di testo, lo script automatizza la creazione di tutti i formati finali. 
+Il progetto segue le 6 fasi classiche dell'editoria digitale. Ho usato l'approccio *Single Source Publishing*: partendo da un unico file di testo, lo script automatizza la creazione di tutti i formati finali. 
 
 Ecco come funzionano i file e come si muovono all'interno del flusso:
 
@@ -89,7 +90,7 @@ graph TD
     end
     
     %% 5. PRODUZIONE
-    MAIN -->|Crea automaticamente i dati| META[5. Production Metadati:<br/>output_onix.json<br/>output_schema_org.json]
+    MAIN -->|Crea automaticamente i dati| META[5. Produzione Metadati:<br/>output_onix.json<br/>output_schema_org.json]
     
     MAIN -->|Copia file style.css da 02_Stili a site/css| WEB_CSS[Foglio di stile sito:<br/>site/css/style.css]
     
