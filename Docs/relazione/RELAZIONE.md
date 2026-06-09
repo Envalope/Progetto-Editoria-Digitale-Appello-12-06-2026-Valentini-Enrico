@@ -11,7 +11,7 @@ bibliography: "bibliografia.bib"
 csl: "IEEE.csl"
 ---
 
-<img src="../minerva.jpg" alt="Logo UNIMI" width="200" height="200" />
+<img src="../minerva.jpg" alt="Logo UNIMI" width="300" height="300" />
 
 # One Health & Futuro Digitale: Dossier Strategico
 ## Analisi multidisciplinare su Salute, Clima, IA e Disinformazione per i professionisti dell'informazione
