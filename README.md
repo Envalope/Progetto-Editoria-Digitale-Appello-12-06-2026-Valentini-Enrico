@@ -11,46 +11,46 @@ Nella repository sono presenti gli output editoriali generati automaticamente (P
 
 ## Struttura delle Cartelle e dei File
 
-* **`01_Sorgenti/`**: File di partenza inseriti dall'autore.
-  * `input.md` (Il testo dell'opera pulito dai tag di stile)
-  * `metadati.yaml` (Le informazioni editoriali)
+* **`01_Sorgenti/`**: I file di partenza che ho scritto per il progetto.
+  * `input.md` (Il testo dell'opera, tenuto pulito e senza codice di stile dentro)
+  * `metadati.yaml` (Le informazioni editoriali e le configurazioni di Pandoc)
   * `copertina.png` (L'immagine di copertina)
-  * `bibliografia.bib` (File per la gestione delle citazioni e della bibliografia)
-* **`02_Stili/`**: Regole grafiche e di impaginazione.
-  * `epub.css` (Stile fluido e adattivo per l'e-book)
-  * `style.css` (Stile strutturato ed elegante per il sito web)
-* **`03_Script/`**: Il motore di automazione del progetto.
-  * `main.py` (Script principale orchestratore)
-* **`04_Output/`**: I documenti e i metadati generati in automatico.
-  * `output.pdf` (Documento per la stampa)
-  * `output.epub` (E-book)
-  * `output_onix.json` (Metadati per librerie)
-  * `output_schema_org.json` (Metadati per i motori di ricerca)
-* **`05_webook/site/`**: La cartella dedicata al sito statico interattivo.
-  * `index.html` (Web-Book compilato)
-  * `css/style.css` (Foglio di stile del sito, copiato in automatico dallo script)
+  * `bibliografia.bib` (Il database con le fonti e le citazioni)
+* **`02_Stili/`**: I fogli di stile separati dal testo.
+  * `epub.css` (Lo stile adattivo per l'e-book)
+  * `style.css` (Lo stile strutturato per il sito web)
+* **`03_Script/`**: Il motore di automazione.
+  * `main.py` (Lo script Python principale che fa girare tutto)
+* **`04_Output/`**: I file finali e i metadati generati automaticamente.
+  * `output.pdf` (Il file pronto per la stampa)
+  * `output.epub` (L'e-book per gli e-reader)
+  * `output_onix.json` (I metadati per i distributori e le librerie)
+  * `output_schema_org.json` (I metadati per l'indicizzazione sui motori di ricerca)
+* **`05_webook/site/`**: La cartella con il sito web statico.
+  * `index.html` (La pagina principale del Web-Book)
+  * `css/style.css` (Il foglio di stile del sito, copiato qui in automatico dallo script)
 
 ## Il Flusso del Processo Editoriale
 
-Il progetto segue le 6 fasi classiche dell'editoria digitale, automatizzando tutto il flusso di lavoro partendo da un unico set di file (*Single Source Publishing*). Il cuore del progetto è lo script `main.py`, che gestisce l'elaborazione dei testi, la gestione logica degli stili e la generazione dei file finali.
+Il progetto segue le 6 fasi classiche dell'editoria digitale. Ho usato l'approccio *Single Source Publishing*: partendo da un unico file di testo, lo script automatizza la creazione di tutti i formati finali. 
 
-Ecco nel dettaglio come i file interagiscono in ogni singola fase:
+Ecco come funzionano i file e come si muovono all'interno del flusso:
 
-1. **Ideazione:** Scelta dell'argomento principale del progetto, in questo caso il tema "One Health".
-2. **Acquisizione dei contenuti:** Tutto il materiale di partenza viene inserito nella cartella `01_Sorgenti/`. Troviamo il testo puro in `input.md`, i dati del libro in `metadati.yaml`, i riferimenti per le citazioni in `bibliografia.bib` e l'immagine in `copertina.png`.
-3. **Revisione e Redazione:** Lo script `main.py` fa il lavoro di correzione automatica. Legge il file di testo grezzo (`input.md`), ne uniforma la formattazione e trasforma le parole chiave in link cliccabili diretti al glossario. Il risultato è un testo "pulito" ed esclusivamente semantico, pronto per ricevere la grafica in un secondo momento.
-4. **Progettazione Grafica:** Per garantire la massima qualità su ogni dispositivo, abbiamo separato nettamente i fogli di stile nella cartella `02_Stili/`. 
-   * Il file `epub.css` è progettato appositamente per gli e-reader: non forza sfondi o colori rigidi, permettendo al dispositivo di adattarsi perfettamente alla "Modalità Notte" o "Seppia".
-   * Il file `style.css` è invece progettato per i browser web: impone un layout più strutturato a colori (Navy Blue e sfondi chiari), simile a quello di un dossier o di una rivista scientifica digitale.
-5. **Produzione:** In questa fase lo script `main.py` orchestra la generazione di tutti i file finali operando su più fronti:
-   * **Dati:** Legge `metadati.yaml` e crea in autonomia i file `output_onix.json` e `output_schema_org.json` nella cartella `04_Output/`.
-   * **Gestione Stili Web:** Crea la cartella `site/css/` e vi copia dentro una copia esatta del file `style.css` preso da `02_Stili/`. Questa operazione automatizzata (tramite la libreria `shutil`) è essenziale per evitare link interrotti nel sito e per mantenere pulita la logica di separazione tra sorgenti e output.
-   * **Compilazione Documenti:** Lancia il compilatore `Pandoc`, passandogli il testo pulito, le copertine, la bibliografia e associando a ogni output il suo stile corretto. `Pandoc` genera così `output.pdf`, `output.epub` (agganciato a `epub.css`) e l'interattivo `index.html` (agganciato al nuovo `site/css/style.css`).
-6. **Distribuzione:** Tutti i file pronti vengono caricati su GitHub tramite Git e pubblicati online utilizzando GitHub Pages.
+1. **Ideazione:** Ho scelto l'argomento del dossier, concentrandomi sul tema di attualità "One Health".
+2. **Acquisizione dei contenuti:** Ho preparato i materiali di partenza nella cartella `01_Sorgenti/`. Ho scritto il testo in `input.md`, raccolto le informazioni del libro in `metadati.yaml`, inserito i riferimenti degli articoli in `bibliografia.bib` e aggiunto l'immagine `copertina.png`.
+3. **Revisione e Redazione:** Quando lancio `main.py`, lo script legge il file grezzo `input.md` e fa una pulizia automatica. Sistema la formattazione (rimuove gli spazi extra) e analizza il testo per cercare le parole chiave del glossario, inserendo in automatico i link cliccabili. In questo modo il testo diventa pulito, corretto e pronto per essere impaginato.
+4. **Progettazione Grafica:** Per gestire al meglio la resa visiva, ho deciso di separare nettamente gli stili nella cartella `02_Stili/` a seconda del formato di destinazione:
+   * `epub.css` serve per l'e-book. È fluido e non impone sfondi o colori fissi, così se l'utente usa la "Modalità Notte" o "Seppia" sul suo e-reader, lo sfondo e i testi cambiano colore correttamente senza creare riquadri bianchi illeggibili.
+   * `style.css` serve invece per il browser web. Ha un layout più strutturato, con una palette di colori precisa (Navy Blue e toni chiari) adatta a una lettura da PC o smartphone.
+5. **Produzione:** Lo script `main.py` elabora tutto in parallelo:
+   * Legge `metadati.yaml` e genera da solo i file JSON dei metadati (`output_onix.json` e `output_schema_org.json`).
+   * Crea la cartella `site/css/` e, usando la libreria `shutil`, ci copia dentro il file `style.css` rinominandolo correttamente. Questa automazione è fondamentale per evitare link rotti all'interno del sito web.
+   * Lancia `Pandoc` passando il testo pulito, la copertina e la bibliografia per compilare insieme tutti i formati: `output.pdf`, `output.epub` (usando `epub.css`) e `index.html` (che si aggancia automaticamente al foglio di stile appena copiato).
+6. **Distribuzione:** Ho caricato l'intera struttura su GitHub e, grazie a GitHub Pages, il Web-Book è navigabile online da chiunque.
 
 ### Schema Visivo del Processo
 
-Il diagramma mostra l'acquisizione dei file di partenza, il lavoro logico svolto dallo script `main.py` (compresa la copia strategica dei fogli di stile) e la produzione finale dei vari formati.
+Questo diagramma mostra in modo semplice e chiaro come i file di partenza passano attraverso lo script `main.py` e il compilatore `Pandoc` fino ad arrivare alla pubblicazione sul web.
 
 ```mermaid
 graph TD
