@@ -14,7 +14,7 @@ csl: "IEEE.csl"
 <img src="./logo/minerva.jpg" alt="Logo UNIMI" width="100" height="100" />
 
 # One Health & Futuro Digitale: Dossier Strategico
-Analisi multidisciplinare su Salute, Clima, IA e Disinformazione per i professionisti dell'informazione
+## Analisi multidisciplinare su Salute, Clima, IA e Disinformazione per i professionisti dell'informazione
 
 ## Introduzione
 Il presente progetto, sviluppato nell'ambito del corso di Editoria Digitale, si propone di implementare un ecosistema di pubblicazione digitale basato sul paradigma del *Single Source Publishing* (SSP). L'obiettivo è la creazione di un "Dossier Strategico" tematico, pensato per professionisti dell'informazione — giornalisti, divulgatori scientifici e curatori di contenuti — che necessitano di un flusso di lavoro efficiente per la gestione di tematiche complesse e in continua evoluzione, quali il paradigma *One Health*.
@@ -69,30 +69,3 @@ graph TD
     SCRIPT -->|RegEx| GLOSSARIO[Glossario Automatico]
     SCRIPT -->|Export| METADATA[JSON ONIX/Schema.org]
     SCRIPT -->|Pandoc| OUTPUT[HTML, EPUB, PDF]
-    ```markdown
-## Valutazione dei risultati raggiunti
-
-### Valutazione del flusso di produzione
-* **Riduzione tempi:** Il processo di pubblicazione (generazione di 3 formati) è sceso da ore di lavoro manuale a meno di 3 secondi (esecuzione dello script Python).
-* **Riduzione errori:** La centralizzazione del dato in `input.md` ha eliminato l'incidenza di refusi disallineati tra le diverse versioni.
-* **Qualità:** La formattazione è coerente su tutti i canali, assicurando un *look & feel* professionale.
-* **Nuovi scenari:** L'automazione ha permesso di esplorare canali di distribuzione prima inaccessibili (e-book nativo).
-
-### Confronto con lo stato dell'arte
-* **Flusso ASIS (Tradizionale):** L'autore scrive su editor word-processor (es. Word), esporta manualmente in PDF, copia-incolla il contenuto in un CMS per il sito web e usa software terzi per la conversione EPUB. Ogni correzione richiede tre interventi separati, con un elevato rischio di inconsistenza dei dati.
-* **Flusso TOBE (Proposto):** L'unica "fonte di verità" è il sorgente Markdown. Ogni modifica si propaga istantaneamente su tutti gli output. Il processo è robusto, tracciabile e basato su standard aperti, garantendo la longevità del prodotto digitale.
-
-### Limiti emersi
-Il sistema presenta alcune limitazioni tecniche:
-1. **Dipendenza dall'ambiente locale:** Il workflow richiede l'installazione di Pandoc, Python e una distribuzione LaTeX (XeLaTeX), rendendo il sistema dipendente dalla configurazione dell'ambiente di lavoro.
-2. **Discontinuità CSS-PDF:** LaTeX non supporta direttamente i file CSS. Ho dovuto creare una configurazione separata (YAML) per gestire la geometria della pagina PDF, causando una parziale duplicazione delle direttive di stile.
-3. **Curva di apprendimento:** La configurazione iniziale dello script ha richiesto un tempo di setup superiore rispetto a un workflow manuale, giustificato però dai benefici di manutenzione a lungo termine.
-
-## Conclusioni
-Gli obiettivi del progetto sono stati pienamente raggiunti. Il "Dossier Strategico" si configura come un prodotto multicanale solido, che offre un concreto valore aggiunto ai professionisti dell'informazione. La separazione tra contenuto e presentazione non è stata solo una scelta tecnica, ma una necessità editoriale per garantire scalabilità e precisione. Il progetto apre la strada a futuri sviluppi, come la migrazione del workflow su *GitHub Actions* per una pubblicazione automatizzata *cloud-native* ad ogni commit, rendendo l'intero sistema indipendente dalle risorse locali.
-
-## Bibliografia e sitografia
-* Riferimenti a paper Open Access presenti nel file `bibliografia.bib` (*Nature*, *Science*, *eLife*).
-* Documentazione tecnica: *Pandoc User's Guide* (MacFarlane, 2026).
-* Documentazione linguaggio Python 3 e modulo `re`.
-* Materiale didattico del corso di *Editoria Digitale* tenuto dal Prof. Ceravolo.
