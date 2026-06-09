@@ -1,0 +1,183 @@
+/* style.css - Foglio di stile per il sito web (Web-Book) */
+
+/*IMPOSTAZIONI GENERALI E TIPOGRAFIA*/
+body {
+    font-family: 'Georgia', 'Times New Roman', serif;
+    line-height: 1.8;
+    color: #334155; 
+    background-color: #ffffff;
+    max-width: 850px;
+    margin: 0 auto;
+    padding: 50px 5%;
+}
+
+/*  INTESTAZIONE E TITOLI*/
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Helvetica Neue', 'Segoe UI', Arial, sans-serif;
+    color: #0f172a; 
+    margin-top: 2em;
+    margin-bottom: 0.8em;
+    font-weight: 600;
+}
+
+#title-block-header {
+    text-align: center;
+    margin-bottom: 4em;
+    padding-bottom: 2em;
+    border-bottom: 3px solid #1e3a8a; 
+}
+
+#title-block-header .title {
+    font-size: 2.8em;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    color: #0f172a;
+    margin-bottom: 0.2em;
+}
+
+#title-block-header .subtitle {
+    font-size: 1.4em;
+    color: #475569;
+    font-weight: 300;
+    font-style: italic;
+}
+
+#title-block-header .author, 
+#title-block-header .date {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 1.1em;
+    color: #64748b;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-top: 1em;
+}
+
+h1 {
+    font-size: 2.2em;
+    color: #1e3a8a; 
+    border-bottom: 1px solid #e2e8f0;
+    padding-bottom: 0.3em;
+}
+
+h2 {
+    font-size: 1.6em;
+    color: #1e293b;
+}
+
+h3 {
+    font-size: 1.3em;
+    color: #334155;
+}
+
+/* TESTO E COLLEGAMENTI */
+p {
+    margin-bottom: 1.5em;
+    text-align: justify;
+}
+
+a {
+    color: #2563eb; 
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: border-bottom 0.2s ease;
+}
+
+a:hover {
+    border-bottom: 1px solid #2563eb;
+}
+
+sup a {
+    font-weight: bold;
+    color: #1e3a8a;
+    padding: 0 2px;
+}
+
+/* INDICE */
+#TOC {
+    background-color: #f8fafc; 
+    border-left: 4px solid #1e3a8a;
+    padding: 2em;
+    margin: 3em 0;
+    border-radius: 0 8px 8px 0;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+}
+
+#TOC h2 {
+    margin-top: 0;
+    font-size: 1.3em;
+    color: #0f172a;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border-bottom: none;
+}
+
+#TOC ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+#TOC ul ul {
+    padding-left: 1.5em;
+    margin-top: 0.5em;
+    list-style-type: circle;
+    color: #64748b;
+}
+
+#TOC li {
+    margin-bottom: 0.8em;
+}
+
+#TOC a {
+    color: #334155;
+    font-weight: 500;
+    border-bottom: none;
+}
+
+#TOC a:hover {
+    color: #2563eb;
+}
+
+/* LISTE ED ELENCHI*/
+ul {
+    margin-bottom: 2em;
+    padding-left: 20px;
+}
+
+ul li {
+    margin-bottom: 1em;
+}
+
+ul > li > ul {
+    margin-top: 0.8em;
+    background-color: #fcfcfc;
+    padding: 1.5em;
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+    list-style-type: none; 
+}
+
+ul > li > ul > li {
+    margin-bottom: 0.6em;
+}
+
+/*BIBLIOGRAFIA E GLOSSARIO*/
+.references {
+    font-size: 0.9em;
+    line-height: 1.6;
+    background-color: #f8fafc;
+    padding: 2.5em;
+    border-radius: 8px;
+    border: 1px solid #e2e8f0;
+}
+
+.csl-entry {
+    margin-bottom: 1.2em;
+    padding-bottom: 1.2em;
+    border-bottom: 1px dashed #cbd5e1;
+}
+
+.csl-entry:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}

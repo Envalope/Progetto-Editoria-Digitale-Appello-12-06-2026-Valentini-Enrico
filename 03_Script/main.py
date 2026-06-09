@@ -3,11 +3,13 @@ import json
 import subprocess
 import os
 import re
+import shutil
 
 # ==============================================================================
 # SETTAGGIO PERCORSI
 # ==============================================================================
 DIR_SORGENTI = "../01_Sorgenti"
+DIR_STILI = "../02_Stili"
 DIR_OUTPUT = "../04_Output"
 DIR_WEB = "../05_webook/site"
 YAML_FILE = os.path.join(DIR_SORGENTI, "metadati.yaml")
@@ -159,7 +161,7 @@ def convert_with_pandoc(input_files, output_file, metadata, pdf_engine=None, toc
     subprocess.run(command, check=True, cwd=DIR_SORGENTI)
     print(f"Generato: {output_file}") #stampo a video in console
 
-# Aggiungo una funzione ad hoc per l'epub per applicare lo stile e la copertina senza toccare la funzione originale
+# Aggiungo una funzione ad hoc per l'epub per applicare lo stile EPUB e la copertina
 def convert_epub_con_stile(input_files, output_file, metadata, cover_image=None):
     command = [ 
         'pandoc', *input_files, 
@@ -177,11 +179,22 @@ def convert_epub_con_stile(input_files, output_file, metadata, cover_image=None)
     subprocess.run(command, check=True, cwd=DIR_SORGENTI)
     print(f"Generato: {output_file}")
 
+# Aggiungo la funzione per il sito HTML pescando STYLE.CSS
 def generate_webbook(input_file):
     if not os.path.exists(DIR_WEB):
         os.makedirs(DIR_WEB)
-        os.makedirs(os.path.join(DIR_WEB, "css"), exist_ok=True)
     
+    # Creiamo in automatico la cartella css all'interno del sito
+    css_dir = os.path.join(DIR_WEB, "css")
+    os.makedirs(css_dir, exist_ok=True)
+    
+    # Prendo il file STYLE.CSS dalla cartella stili, e lo copio nella cartella del sito web
+    file_css_sorgente = os.path.join(DIR_STILI, "style.css")
+    file_css_destinazione = os.path.join(css_dir, "style.css")
+    
+    if os.path.exists(file_css_sorgente):
+        shutil.copyfile(file_css_sorgente, file_css_destinazione)
+        
     output_path = os.path.join(DIR_WEB, "index.html")
     command = ['pandoc', input_file, '--metadata-file', 'metadati.yaml', '--output', output_path, '--toc', '--standalone', '--css', 'css/style.css', '--citeproc']
     subprocess.run(command, check=True, cwd=DIR_SORGENTI)
