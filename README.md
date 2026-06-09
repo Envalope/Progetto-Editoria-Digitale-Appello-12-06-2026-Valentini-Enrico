@@ -11,6 +11,13 @@ Nella repository sono presenti gli output editoriali generati automaticamente (P
 
 ## Struttura delle Cartelle e dei File
 
+* **`README.md`**: Questo file, che contiene la descrizione generale del progetto e la documentazione del flusso di lavoro.
+* **`.gitignore`**: File di configurazione fondamentale per Git; indica al sistema quali file o intere cartelle (come file temporanei, file di log, cache o configurazioni locali dell'editor) devono essere ignorati dal controllo di versione e non caricati sul repository remoto.
+* **`Docs/`**: Cartella dedicata alla documentazione descrittiva d'esame e alle risorse correlate.
+  * `minerva.jpg` (Il logo ufficiale dell'Università degli Studi di Milano)
+  * **`Relazione/`**: Sottocartella contenente i documenti relativi alla spiegazione del progetto.
+    * `relazione.md` (La relazione dell'esame in formato di testo strutturato Markdown)
+    * `relazione.pdf` (La versione PDF formattata e pronta per la lettura della relazione)
 * **`01_Sorgenti/`**: I file di partenza che ho scritto per il progetto.
   * `input.md` (Il testo dell'opera, tenuto pulito e senza codice di stile dentro)
   * `metadati.yaml` (Le informazioni editoriali e le configurazioni di Pandoc)
@@ -32,7 +39,7 @@ Nella repository sono presenti gli output editoriali generati automaticamente (P
 
 ## Il Flusso del Processo Editoriale
 
-Il progetto segue le 6 fasi classiche dell'editoria digitale. Ho usato l'approccio *Single Source Publishing*: partendo da un unico file di testo, lo script automatizza la creazione di tutti i formati finali. 
+Il progetto segue le 6 fases classiche dell'editoria digitale. Ho usato l'approccio *Single Source Publishing*: partendo da un unico file di testo, lo script automatizza la creazione di tutti i formati finali. 
 
 Ecco come funzionano i file e come si muovono all'interno del flusso:
 
@@ -41,7 +48,7 @@ Ecco come funzionano i file e come si muovono all'interno del flusso:
 3. **Revisione e Redazione:** Quando lancio `main.py`, lo script legge il file grezzo `input.md` e fa una pulizia automatica. Sistema la formattazione (rimuove gli spazi extra) e analizza il testo per cercare le parole chiave del glossario, inserendo in automatico i link cliccabili. In questo modo il testo diventa pulito, corretto e pronto per essere impaginato.
 4. **Progettazione Grafica:** Per gestire al meglio gli stili e la visualizzazione, ho deciso di separare gli stili nella cartella `02_Stili/` a seconda del formato di destinazione:
    * `epub.css` serve per l'e-book. Non impone sfondi o colori fissi, così se l'utente usa la "Modalità Notte" o "Modalità giorno" sul suo e-reader, lo sfondo e i testi cambiano colore correttamente senza creare riquadri bianchi illeggibili.
-   * `style.css` serve invece per il sito statico index.html. Ha un layoutadattato per una lettura da PC o smartphone.
+   * `style.css` serve invece per il sito statico index.html. Ha un layout adattato per una lettura da PC o smartphone.
 5. **Produzione:** Lo script `main.py` elabora tutto in parallelo:
    * Legge `metadati.yaml` e genera da solo i file JSON dei metadati (`output_onix.json` e `output_schema_org.json`).
    * Crea la cartella `site/css/` e, usando la libreria `shutil`, ci copia dentro il file `style.css` rinominandolo correttamente. Questa automazione è fondamentale per evitare link rotti all'interno del sito web.
@@ -82,7 +89,7 @@ graph TD
     end
     
     %% 5. PRODUZIONE
-    MAIN -->|Crea automaticamente i dati| META[5. Produzione Metadati:<br/>output_onix.json<br/>output_schema_org.json]
+    MAIN -->|Crea automaticamente i dati| META[5. Production Metadati:<br/>output_onix.json<br/>output_schema_org.json]
     
     MAIN -->|Copia file style.css da 02_Stili a site/css| WEB_CSS[Foglio di stile sito:<br/>site/css/style.css]
     
