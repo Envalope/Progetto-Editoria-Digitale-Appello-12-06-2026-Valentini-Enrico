@@ -1,6 +1,6 @@
 ---
 title: Relazione del progetto d'esame di Editoria Digitale
-author: "Enrico Valentini (Matricola: 994092)
+author: "Enrico Valentini (Matricola: 994092)"
 date: a.a. 2025/2026
 institute: Università degli Studi di Milano - CdL in Informatica Musicale
 course: Editoria Digitale
