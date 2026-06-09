@@ -1,4 +1,4 @@
-# One Health & Futuro Digitale 🌍
+# One Health & Futuro Digitale
 
 Progetto realizzato nell'ambito del corso di Editoria Digitale del prof. Ceravolo Paolo.
 
@@ -37,11 +37,11 @@ Il progetto segue le 6 fasi classiche dell'editoria digitale. Ho usato l'approcc
 Ecco come funzionano i file e come si muovono all'interno del flusso:
 
 1. **Ideazione:** Ho scelto l'argomento del dossier, concentrandomi sul tema di attualità "One Health".
-2. **Acquisizione dei contenuti:** Ho preparato i materiali di partenza nella cartella `01_Sorgenti/`. Ho scritto il testo in `input.md`, raccolto le informazioni del libro in `metadati.yaml`, inserito i riferimenti degli articoli in `bibliografia.bib` e aggiunto l'immagine `copertina.png`.
+2. **Acquisizione dei contenuti:** Ho preparato i materiali di partenza nella cartella `01_Sorgenti/`. Ho scritto il testo in `input.md`, raccolto i metadati e le informazioni del contenuto in `metadati.yaml`, inserito i riferimenti degli articoli in `bibliografia.bib` e aggiunto l'immagine `copertina.png`.
 3. **Revisione e Redazione:** Quando lancio `main.py`, lo script legge il file grezzo `input.md` e fa una pulizia automatica. Sistema la formattazione (rimuove gli spazi extra) e analizza il testo per cercare le parole chiave del glossario, inserendo in automatico i link cliccabili. In questo modo il testo diventa pulito, corretto e pronto per essere impaginato.
-4. **Progettazione Grafica:** Per gestire al meglio la resa visiva, ho deciso di separare nettamente gli stili nella cartella `02_Stili/` a seconda del formato di destinazione:
-   * `epub.css` serve per l'e-book. È fluido e non impone sfondi o colori fissi, così se l'utente usa la "Modalità Notte" o "Seppia" sul suo e-reader, lo sfondo e i testi cambiano colore correttamente senza creare riquadri bianchi illeggibili.
-   * `style.css` serve invece per il browser web. Ha un layout più strutturato, con una palette di colori precisa (Navy Blue e toni chiari) adatta a una lettura da PC o smartphone.
+4. **Progettazione Grafica:** Per gestire al meglio gli stili e la visualizzazione, ho deciso di separare gli stili nella cartella `02_Stili/` a seconda del formato di destinazione:
+   * `epub.css` serve per l'e-book. Non impone sfondi o colori fissi, così se l'utente usa la "Modalità Notte" o "Modalità giorno" sul suo e-reader, lo sfondo e i testi cambiano colore correttamente senza creare riquadri bianchi illeggibili.
+   * `style.css` serve invece per il sito statico index.html. Ha un layoutadattato per una lettura da PC o smartphone.
 5. **Produzione:** Lo script `main.py` elabora tutto in parallelo:
    * Legge `metadati.yaml` e genera da solo i file JSON dei metadati (`output_onix.json` e `output_schema_org.json`).
    * Crea la cartella `site/css/` e, usando la libreria `shutil`, ci copia dentro il file `style.css` rinominandolo correttamente. Questa automazione è fondamentale per evitare link rotti all'interno del sito web.
@@ -50,7 +50,7 @@ Ecco come funzionano i file e come si muovono all'interno del flusso:
 
 ### Schema Visivo del Processo
 
-Questo diagramma mostra in modo semplice e chiaro come i file di partenza passano attraverso lo script `main.py` e il compilatore `Pandoc` fino ad arrivare alla pubblicazione sul web.
+Questo diagramma mostra come i file di partenza passano attraverso lo script `main.py` e il compilatore `Pandoc` fino ad arrivare alla pubblicazione sul web.
 
 ```mermaid
 graph TD
