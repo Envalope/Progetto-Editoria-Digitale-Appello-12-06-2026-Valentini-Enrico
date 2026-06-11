@@ -39,7 +39,7 @@ Il testo è stato diviso in sette capitoli che esplorano diverse aree scientific
 7. **Open Science:** Perché condividere i dati liberamente è fondamentale per la validità della ricerca.
 
 ### Destinatari e Definizione delle Personas
-Per calibrare il linguaggio da usare e l'organizzazione dei formati, seguendo le indicazioni metodologiche del corso sulla progettazione *user-centered*, ho definito due profili ideali di utenti (*personas*). Creare questi personaggi di fantasia mi ha aiutato a identificare concretamente le esigenze, i limiti e gli obiettivi del mio pubblico, supportandomi nella stesura degli scenari d'uso specifici.
+Per calibrare il linguaggio da usare e l'organizzazione dei formati, seguendo le indicazioni metodologiche del corso sulla progettazione *user-centered*, ho definito tre profili ideali di utenti (*personas*). Creare questi personaggi di fantasia mi ha aiutato a identificare concretamente le esigenze, i limiti e gli obiettivi del mio pubblico, supportandomi nella stesura degli scenari d'uso specifici.
 
 **Persona 1: Marco, il Redattore Web**
 * **Profilo e Background:** Marco ha 32 anni, una laurea in Scienze della Comunicazione e lavora come redattore per una testata giornalistica online. Ha una cultura generale umanistica ma si trova spesso a dover coprire notizie di cronaca ambientale o scientifica.
@@ -52,6 +52,12 @@ Per calibrare il linguaggio da usare e l'organizzazione dei formati, seguendo le
 * **Obiettivi e Bisogni:** Vuole produrre contenuti di altissima qualità, approfonditi e strutturati. Il suo obiettivo a medio termine è fidelizzare i lettori della sua newsletter, offrendo analisi che non si trovano nei classici telegiornali.
 * **Abitudini e Limiti:** Lavora molto in mobilità (treni, aerei), consuma i contenuti durante i viaggi e usa quasi esclusivamente dispositivi a inchiostro elettronico (e-reader) per non affaticare la vista. Apprezza moltissimo i materiali organizzati in modo logico e modulare.
 * **Scenario d'uso:** Mentre viaggia in treno, legge il dossier offline sul suo e-reader (EPUB). Grazie al formato, naviga agilmente tra i capitoli. Se incontra un termine tecnico, ci clicca sopra e legge la definizione nel glossario senza perdere il segno. Trovando la struttura estremamente chiara, decide di usarla come scaletta per la sua prossima newsletter.
+
+**Persona 3: Giulia, l'Esperta di Comunicazione per ONG ed Enti Pubblici**
+* **Profilo e Background:** Giulia ha 28 anni, ha conseguito un master in Comunicazione Ambientale e lavora come consulente per organizzazioni non profit ed enti locali. Si occupa della creazione di campagne informative e di sensibilizzazione rivolte ai cittadini.
+* **Obiettivi e Bisogni:** Ha la necessità di reperire dati scientifici inoppugnabili e solidi, ma spiegati con un linguaggio accessibile, per poter strutturare brochure, slide, post sui social network istituzionali e infografiche pubbliche.
+* **Abitudini e Limiti:** Partecipa spesso a tavoli di lavoro e panel informativi di persona. Preferisce disporre di formati fisici stampabili o di file PDF ben formattati che le permettano di estrarre e schematizzare velocemente i macro-temi senza perdersi in trattazioni troppo accademiche.
+* **Scenario d'uso:** Durante la pianificazione di una campagna di sensibilizzazione sulla salute globale nelle scuole superiori, Giulia scarica e consulta la versione stampabile (PDF) del dossier. Stampa alcune sezioni chiave del documento e utilizza la precisa suddivisione in capitoli per imbastire la scaletta dei contenuti grafici e dei volantini da distribuire ai ragazzi, beneficiando del fatto che tutte le fonti siano già validate.
 
 ### Requisiti di accettazione
 Per considerare il progetto completo e funzionante, sono stati fissati e rispettati i seguenti requisiti:
@@ -70,6 +76,13 @@ Il progetto è stato pensato per presidiare tre canali di distribuzione diversi,
 
 ### Acquisizione dei contenuti
 Gli articoli scientifici di base sono stati cercati sui database accademici online, scegliendo unicamente paper pubblicati con licenza Open Access. In questo modo, il "costo di acquisizione" economico delle fonti è stato nullo. 
+
+Per la composizione del dossier, la raccolta del materiale bibliografico ha attinto specificamente dalle seguenti rinomate piattaforme e banche dati open access:
+* **PubMed Central** (Per l'acquisizione di studi biomedici e report sulla diffusione di zoonosi)
+* **Google Scholar** (Come motore di ricerca per mappare e individuare le pubblicazioni accademiche transdisciplinari)
+* **DOAJ - Directory of Open Access Journals** (Per la validazione e la selezione di riviste scientifiche interamente ad accesso aperto)
+* **PLOS ONE** (Per il reperimento di paper quantitativi e ricerche ad ampio spettro su clima e intelligenza artificiale)
+
 Dato che l'impaginazione e la creazione della bibliografia avvengono in automatico grazie al software, il costo principale del progetto, in termini di tempo, è stato il lavoro di redazione manuale: i paper in inglese sono stati studiati e riassunti in un italiano chiaro e divulgativo all'interno del file sorgente `input.md`.
 
 ### Gestione documentale
