@@ -18,18 +18,18 @@ Analisi multidisciplinare su Salute, Clima, IA e Disinformazione per i professio
 
 ## Introduzione
 
-Il presente documento descrive l'ideazione e lo sviluppo di un flusso editoriale completamente automatizzato per la pubblicazione digitale. L'obiettivo del progetto è la creazione di un "Dossier Strategico" su tematiche scientifiche di grande attualità, pensato per fornire a giornalisti, redattori web e divulgatori informazioni chiare, verificate e facili da consultare nel loro lavoro quotidiano.
+Questa relazione descrive l'ideazione e lo sviluppo di un flusso editoriale completamente automatizzato per la pubblicazione digitale. L'obiettivo del progetto è la creazione di un "Dossier Strategico" su tematiche scientifiche di grande attualità, pensato per fornire a giornalisti, redattori web e divulgatori informazioni chiare, verificate e facili da consultare nel loro lavoro quotidiano.
 
-L'intero progetto si basa sul principio del *Single Source Publishing* (SSP). Questo significa che tutto il contenuto del dossier si trova in un unico file di testo scritto in formato Markdown, separato da qualsiasi logica grafica. Per far funzionare l'automazione, è stato sviluppato uno script in Python che elabora questo testo e guida il convertitore Pandoc. Avviando lo script, il sistema genera in automatico tre formati finali: un sito web statico (Web-Book in HTML), un e-book (EPUB) e un documento PDF pronto per la stampa. Allo stesso tempo, lo script estrae le informazioni descrittive sull'opera (i metadati) nei formati standard ONIX e Schema.org.
+L'intero progetto si basa sul principio del *Single Source Publishing* (SSP). Questo significa che tutto il contenuto del dossier si trova in un unico file di testo scritto in formato Markdown, separato da qualsiasi logica grafica. Per far funzionare l'automazione, è stato sviluppato uno script in Python che elabora questo testo e guida il convertitore Pandoc. Avviando lo script, il sistema genera in automatico tre formati finali: un sito web statico (Web-Book in HTML), un e-book (EPUB) e un documento PDF pronto per la stampa. Allo stesso tempo, lo script estrae i metadati nei formati standard ONIX e Schema.org.
 
-È importante sottolineare che i codici, i comandi di conversione e le logiche utilizzate per costruire questa automazione sono esattamente quelli forniti dal docente e illustrati nei materiali didattici del corso. Questi codici sono stati studiati, riadattati e riassemblati per funzionare in sequenza all'interno di questo specifico flusso di lavoro, dimostrando sul campo l'efficacia degli strumenti presentati a lezione.
+I codici, i comandi di conversione e le logiche utilizzate per costruire questa automazione sono esattamente quelli forniti dal docente e illustrati nei materiali didattici del corso. Questi codici sono stati riadattati e riassemblati per funzionare in sequenza all'interno di questo specifico flusso di lavoro.
 
 ## Ideazione 
 
 ### Tema
 Per il contenuto del dossier è stato scelto il concetto di "One Health", ovvero l'approccio che riconosce che la salute umana, quella degli animali e l'ambiente naturale sono un unico grande sistema collegato. Si tratta di un argomento molto discusso oggi e con una forte attenzione mediatica, per il quale è fondamentale avere a disposizione un'informazione accurata e lontana dalle *fake news*.
 
-Il testo è stato diviso in sette capitoli che esplorano diverse aree scientifiche:
+Il testo è stato diviso in sette capitoli che trattano diverse aree scientifiche:
 1. **Salute Globale:** Come i danni agli ecosistemi favoriscono la diffusione di nuove malattie (zoonosi).
 2. **Intelligenza Artificiale:** L'uso dei dati in medicina e il rischio legato ai pregiudizi (bias) degli algoritmi.
 3. **Crisi Climatica:** Come la scienza riesce ad attribuire al cambiamento climatico i singoli eventi estremi.
@@ -39,34 +39,34 @@ Il testo è stato diviso in sette capitoli che esplorano diverse aree scientific
 7. **Open Science:** Perché condividere i dati liberamente è fondamentale per la validità della ricerca.
 
 ### Destinatari e Definizione delle Personas
-Per calibrare il linguaggio da usare e l'organizzazione dei formati, seguendo le indicazioni metodologiche del corso sulla progettazione *user-centered*, ho definito tre profili ideali di utenti (*personas*). Creare questi personaggi di fantasia mi ha aiutato a identificare concretamente le esigenze, i limiti e gli obiettivi del mio pubblico, supportandomi nella stesura degli scenari d'uso specifici.
+Per definire il linguaggio da usare e per definire qual formati utilizzare, seguendo le indicazioni metodologiche del corso sulla progettazione *user-centered*, ho definito tre profili ideali di utenti (*personas*). Creare questi personaggi di fantasia mi ha aiutato a identificare le esigenze, i limiti e gli obiettivi del pubblico cui è destinato il contenuto, aiutandomi nella stesura degli scenari d'uso specifici.
 
 **Persona 1: Marco, il Redattore Web**
 * **Profilo e Background:** Marco ha 32 anni, una laurea in Scienze della Comunicazione e lavora come redattore per una testata giornalistica online. Ha una cultura generale umanistica ma si trova spesso a dover coprire notizie di cronaca ambientale o scientifica.
-* **Obiettivi e Bisogni:** Il suo obiettivo a breve termine è scrivere articoli di approfondimento in tempi rapidissimi (spesso entro un paio d'ore). Ha un disperato bisogno di fonti già filtrate, affidabili e pronte all'uso, perché teme di scrivere inesattezze o alimentare la disinformazione.
-* **Abitudini e Limiti:** Lavora sempre al computer, sotto forte stress e con scadenze molto strette. Legge velocemente "in diagonale" e tende ad abbandonare i siti che non presentano subito un indice chiaro o un riassunto dei contenuti.
-* **Scenario d'uso:** C'è un'improvvisa emergenza ambientale e deve scrivere un pezzo in fretta. Visita il sito web (HTML) del progetto, legge l'introduzione chiara al problema e trova i riassunti di studi autorevoli. Usa i link nel testo per scaricare gratuitamente i documenti originali, verifica le informazioni e chiude l'articolo in tempo, citando fonti sicure.
+* **Obiettivi e Bisogni:** Il suo obiettivo è scrivere articoli di approfondimento in tempi rapidi e ottenendo risultati professionali. Ha necessariamente bisogno per perseguire il suo obiettivo di fonti già filtrate, affidabili e pronte all'uso, per evitare di scrivere inesattezze o alimentare la disinformazione.
+* **Abitudini e Limiti:** Lavora sempre al computer, sotto forte stress e con scadenze molto strette. Legge velocemente e tende ad abbandonare i siti che non presentano subito un indice chiaro o un riassunto dei contenuti.
+* **Scenario d'uso:** C'è un'improvvisa emergenza ambientale e deve scrivere un articolo in fretta. Visita il sito web (HTML) del progetto, legge l'introduzione chiara al problema e trova i riassunti di studi autorevoli. Usa i link nel testo per scaricare gratuitamente i documenti originali, verifica le informazioni e chiude l'articolo in tempo, citando fonti sicure.
 
 **Persona 2: Elena, la Divulgatrice Scientifica**
-* **Profilo e Background:** Elena ha 41 anni, una solida formazione scientifica e lavora come freelance. Crea newsletter, cura un blog tematico e tiene corsi di formazione aziendale sulla sostenibilità.
-* **Obiettivi e Bisogni:** Vuole produrre contenuti di altissima qualità, approfonditi e strutturati. Il suo obiettivo a medio termine è fidelizzare i lettori della sua newsletter, offrendo analisi che non si trovano nei classici telegiornali.
+* **Profilo e Background:** Elena ha 41 anni, un'ottima formazione scientifica e lavora come freelance. Crea newsletter, cura un blog e tiene corsi di formazione aziendale sulla sostenibilità.
+* **Obiettivi e Bisogni:** Vuole produrre contenuti di altissima qualità, approfonditi e strutturati. Il suo obiettivo è fidelizzare i lettori della sua newsletter, offrendo analisi che non si trovano nei classici telegiornali o giornali.
 * **Abitudini e Limiti:** Lavora molto in mobilità (treni, aerei), consuma i contenuti durante i viaggi e usa quasi esclusivamente dispositivi a inchiostro elettronico (e-reader) per non affaticare la vista. Apprezza moltissimo i materiali organizzati in modo logico e modulare.
 * **Scenario d'uso:** Mentre viaggia in treno, legge il dossier offline sul suo e-reader (EPUB). Grazie al formato, naviga agilmente tra i capitoli. Se incontra un termine tecnico, ci clicca sopra e legge la definizione nel glossario senza perdere il segno. Trovando la struttura estremamente chiara, decide di usarla come scaletta per la sua prossima newsletter.
 
 **Persona 3: Giulia, l'Esperta di Comunicazione per ONG ed Enti Pubblici**
 * **Profilo e Background:** Giulia ha 28 anni, ha conseguito un master in Comunicazione Ambientale e lavora come consulente per organizzazioni non profit ed enti locali. Si occupa della creazione di campagne informative e di sensibilizzazione rivolte ai cittadini.
-* **Obiettivi e Bisogni:** Ha la necessità di reperire dati scientifici inoppugnabili e solidi, ma spiegati con un linguaggio accessibile, per poter strutturare brochure, slide, post sui social network istituzionali e infografiche pubbliche.
-* **Abitudini e Limiti:** Partecipa spesso a tavoli di lavoro e panel informativi di persona. Preferisce disporre di formati fisici stampabili o di file PDF ben formattati che le permettano di estrarre e schematizzare velocemente i macro-temi senza perdersi in trattazioni troppo accademiche.
-* **Scenario d'uso:** Durante la pianificazione di una campagna di sensibilizzazione sulla salute globale nelle scuole superiori, Giulia scarica e consulta la versione stampabile (PDF) del dossier. Stampa alcune sezioni chiave del documento e utilizza la precisa suddivisione in capitoli per imbastire la scaletta dei contenuti grafici e dei volantini da distribuire ai ragazzi, beneficiando del fatto che tutte le fonti siano già validate.
+* **Obiettivi e Bisogni:** Ha la necessità di reperire dati scientifici certi e solidi, ma spiegati con un linguaggio accessibile, per poter strutturare brochure, slide, post sui social network istituzionali e infografiche pubbliche.
+* **Abitudini e Limiti:** Sul lavoro partecipa spesso a riunioni e discussioni informative di persona. Preferisce disporre di formati fisici stampabili o di file PDF ben formattati che le permettano di estrarre e schematizzare velocemente i temi senza perdersi in trattazioni troppo accademiche.
+* **Scenario d'uso:** Durante la pianificazione di una campagna di sensibilizzazione sulla salute globale nelle scuole superiori, Giulia scarica e consulta la versione stampabile (PDF) del dossier. Stampa alcune sezioni chiave del documento e utilizza la precisa suddivisione in capitoli per impostare la scaletta dei contenuti grafici e dei volantini da distribuire ai ragazzi, beneficiando del fatto che tutte le fonti siano già validate.
 
 ### Requisiti di accettazione
 Per considerare il progetto completo e funzionante, sono stati fissati e rispettati i seguenti requisiti:
 * **Separazione tra testo e stile:** Il file Markdown sorgente deve contenere solo testo puro. Impostazioni grafiche come sfondi, colori e margini devono trovarsi esclusivamente nei file CSS esterni.
 * **Adattabilità dell'e-book:** L'EPUB deve essere fluido. Deve adattarsi alle dimensioni dello schermo di chi legge e funzionare correttamente anche se l'utente attiva la "Modalità Notte".
-* **Metadati standard:** I file JSON generati dallo script devono seguire le regole ufficiali per poter essere letti senza errori dai motori di ricerca e dai cataloghi librari.
+* **Metadati standard:** I file JSON generati dallo script devono seguire le regole ufficiali per poter essere letti senza errori dai motori di ricerca.
 
 ### Canali di distribuzione
-Il progetto è stato pensato per presidiare tre canali di distribuzione diversi, ognuno con uno stile visivo adeguato e formale:
+Il progetto è stato pensato per essere destinato a tre canali di distribuzione diversi, ognuno con il suo stile visivo:
 
 1. **Canale Web (HTML):** Distribuito come sito statico. Lo stile (gestito dal file `style.css`) è pulito e simile a quello di un report aziendale o universitario. Sono stati usati sfondi chiari e testo scuro, racchiudendo gli indici in semplici riquadri per rendere la lettura comoda sia da PC che da telefono.
 2. **Canale E-reader (EPUB):** Ottimizzato per dispositivi a inchiostro elettronico. Lo stile dell'e-book (`epub.css`) è molto essenziale. Sono stati tolti i colori fissi, lasciando solo le regole per distanziare i paragrafi, in modo che il testo si adatti in automatico anche in caso di inversione dei colori dello schermo.
@@ -77,13 +77,13 @@ Il progetto è stato pensato per presidiare tre canali di distribuzione diversi,
 ### Acquisizione dei contenuti
 Gli articoli scientifici di base sono stati cercati sui database accademici online, scegliendo unicamente paper pubblicati con licenza Open Access. In questo modo, il "costo di acquisizione" economico delle fonti è stato nullo. 
 
-Per la composizione del dossier, la raccolta del materiale bibliografico ha attinto specificamente dalle seguenti rinomate piattaforme e banche dati open access:
+Per la composizione del dossier, la raccolta del materiale bibliografico ha attinto specificamente dalle seguenti piattaforme e database open access:
 * **PubMed Central** (Per l'acquisizione di studi biomedici e report sulla diffusione di zoonosi)
-* **Google Scholar** (Come motore di ricerca per mappare e individuare le pubblicazioni accademiche transdisciplinari)
-* **DOAJ - Directory of Open Access Journals** (Per la validazione e la selezione di riviste scientifiche interamente ad accesso aperto)
-* **PLOS ONE** (Per il reperimento di paper quantitativi e ricerche ad ampio spettro su clima e intelligenza artificiale)
+* **Google Scholar** (Come motore di ricerca per individuare le pubblicazioni accademiche che coprono più discipline contemporaneamente)
+* **DOAJ - Directory of Open Access Journals** (Per la validazione e la selezione di riviste scientifiche interamente open access)
+* **PLOS ONE** (Per il reperimento di paper e ricerche su clima e intelligenza artificiale)
 
-Dato che l'impaginazione e la creazione della bibliografia avvengono in automatico grazie al software, il costo principale del progetto, in termini di tempo, è stato il lavoro di redazione manuale: i paper in inglese sono stati studiati e riassunti in un italiano chiaro e divulgativo all'interno del file sorgente `input.md`.
+Dato che l'impaginazione e la creazione della bibliografia avvengono in automatico grazie al software, il costo principale del progetto, in termini di tempo, è stato il lavoro di redazione manuale: i paper in inglese sono stati studiati e riassunti in un italiano chiaro e accessibile all'interno del file sorgente `input.md`.
 
 ### Gestione documentale
 Il motore che fa funzionare l'intero progetto è lo script `main.py`. Questo programma automatizza le fasi del flusso documentale in modo sequenziale:
