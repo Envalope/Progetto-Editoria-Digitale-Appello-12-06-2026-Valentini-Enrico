@@ -1,7 +1,7 @@
 ---
 title: "Relazione del progetto d'esame di Editoria Digitale"
 author: "Enrico Valentini 994092"
-date: "Giugno 2026"
+date: "11 Giugno 2026"
 institute: "Università degli Studi di Milano"
 course: "Editoria Digitale"
 tags: ["Single Source Publishing", "Pandoc", "Automazione", "Python", "One Health"]
@@ -38,13 +38,20 @@ Il testo è stato diviso in sette capitoli che esplorano diverse aree scientific
 6. **Transizione Energetica:** Qual è l'impatto reale e il ciclo di vita (LCA) delle tecnologie pulite.
 7. **Open Science:** Perché condividere i dati liberamente è fondamentale per la validità della ricerca.
 
-### Destinatari
-Per calibrare il linguaggio da usare e l'organizzazione dei formati, sono stati definiti due profili professionali di riferimento (*personas*), inseriti in scenari d'uso specifici:
+### Destinatari e Definizione delle Personas
+Per calibrare il linguaggio da usare e l'organizzazione dei formati, seguendo le indicazioni metodologiche del corso sulla progettazione *user-centered*, ho definito due profili ideali di utenti (*personas*). Creare questi personaggi di fantasia mi ha aiutato a identificare concretamente le esigenze, i limiti e gli obiettivi del mio pubblico, supportandomi nella stesura degli scenari d'uso specifici.
 
-* **Il Redattore Web:** Lavora nella redazione di un giornale online, ha scadenze molto strette e deve scrivere articoli complessi pur non avendo una laurea in materie scientifiche.
-  * *Scenario d'uso:* In caso di un'emergenza ambientale, deve scrivere un pezzo in fretta. Visita il sito web del progetto, legge un'introduzione chiara al problema e trova i riassunti di studi autorevoli. Usa i link nel testo per scaricare gratuitamente i documenti originali, verifica le informazioni e chiude l'articolo in tempo, citando fonti sicure.
-* **Il Divulgatore:** Crea newsletter, blog o corsi di formazione. Cerca materiali ben organizzati da poter studiare con calma e rielaborare in futuro.
-  * *Scenario d'uso:* Mentre viaggia in treno, legge il dossier offline sul suo e-reader. Grazie al formato EPUB, naviga agilmente tra i capitoli. Se incontra un termine tecnico, ci clicca sopra e legge la definizione nel glossario senza perdere il segno. Trovando la struttura molto chiara, decide di usarla come scaletta per la sua prossima newsletter.
+**Persona 1: Marco, il Redattore Web**
+* **Profilo e Background:** Marco ha 32 anni, una laurea in Scienze della Comunicazione e lavora come redattore per una testata giornalistica online. Ha una cultura generale umanistica ma si trova spesso a dover coprire notizie di cronaca ambientale o scientifica.
+* **Obiettivi e Bisogni:** Il suo obiettivo a breve termine è scrivere articoli di approfondimento in tempi rapidissimi (spesso entro un paio d'ore). Ha un disperato bisogno di fonti già filtrate, affidabili e pronte all'uso, perché teme di scrivere inesattezze o alimentare la disinformazione.
+* **Abitudini e Limiti:** Lavora sempre al computer, sotto forte stress e con scadenze molto strette. Legge velocemente "in diagonale" e tende ad abbandonare i siti che non presentano subito un indice chiaro o un riassunto dei contenuti.
+* **Scenario d'uso:** C'è un'improvvisa emergenza ambientale e deve scrivere un pezzo in fretta. Visita il sito web (HTML) del progetto, legge l'introduzione chiara al problema e trova i riassunti di studi autorevoli. Usa i link nel testo per scaricare gratuitamente i documenti originali, verifica le informazioni e chiude l'articolo in tempo, citando fonti sicure.
+
+**Persona 2: Elena, la Divulgatrice Scientifica**
+* **Profilo e Background:** Elena ha 41 anni, una solida formazione scientifica e lavora come freelance. Crea newsletter, cura un blog tematico e tiene corsi di formazione aziendale sulla sostenibilità.
+* **Obiettivi e Bisogni:** Vuole produrre contenuti di altissima qualità, approfonditi e strutturati. Il suo obiettivo a medio termine è fidelizzare i lettori della sua newsletter, offrendo analisi che non si trovano nei classici telegiornali.
+* **Abitudini e Limiti:** Lavora molto in mobilità (treni, aerei), consuma i contenuti durante i viaggi e usa quasi esclusivamente dispositivi a inchiostro elettronico (e-reader) per non affaticare la vista. Apprezza moltissimo i materiali organizzati in modo logico e modulare.
+* **Scenario d'uso:** Mentre viaggia in treno, legge il dossier offline sul suo e-reader (EPUB). Grazie al formato, naviga agilmente tra i capitoli. Se incontra un termine tecnico, ci clicca sopra e legge la definizione nel glossario senza perdere il segno. Trovando la struttura estremamente chiara, decide di usarla come scaletta per la sua prossima newsletter.
 
 ### Requisiti di accettazione
 Per considerare il progetto completo e funzionante, sono stati fissati e rispettati i seguenti requisiti:
