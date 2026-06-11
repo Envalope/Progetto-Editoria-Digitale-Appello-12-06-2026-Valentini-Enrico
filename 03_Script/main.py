@@ -5,9 +5,9 @@ import os
 import re
 import shutil
 
-# ==============================================================================
+
 # SETTAGGIO PERCORSI
-# ==============================================================================
+
 DIR_SORGENTI = "../01_Sorgenti"
 DIR_STILI = "../02_Stili"
 DIR_OUTPUT = "../04_Output"
@@ -17,14 +17,14 @@ INPUT_MD = os.path.join(DIR_SORGENTI, "input.md")
 # Nome del file copertina (da inserire in 01_Sorgenti)
 COPERTINA_IMG = "copertina.png"
 
-# ==============================================================================
-# PREPARAZIONE TESTI (Usa il markdown nativo di Pandoc per gli apici)
-# ==============================================================================
+
+# PREPARAZIONE TESTI
+
 def prepara_testi_puliti():
     with open(INPUT_MD, "r", encoding="utf-8") as f:
         testo = f.read()
 
-    # Pulisco il testo da apici HTML o Markdown creati nei test precedenti
+    # Pulizia del testo da apici HTML o Markdown creati nei test precedenti
     testo = re.sub(r'<sup><a href="#g\d+">\d+</a></sup>', '', testo)
     testo = re.sub(r'<a href="#g\d+"><sup>\d+</sup></a>', '', testo)
     testo = re.sub(r'\^\[\d+\]\(#g\d+\)\^', '', testo)
@@ -75,9 +75,8 @@ def prepara_testi_puliti():
         
     return path_tmp
 
-# ==============================================================================
+
 # 1. CODICE ORIGINALE DEL PROF (Metadati)
-# ==============================================================================
 
 def load_yaml(file_path):
     """Carica il file YAML."""
@@ -137,9 +136,8 @@ def save_to_file(data, file_path, format="json"):  #funzione per salvataggio fin
             file.write(str(data))  # Default string format
     print(f"Salvato in: {file_path}")
 
-# ==============================================================================
+
 # 2. CODICE ORIGINALE DEL PROF (Pandoc)
-# ==============================================================================
 
 # Funzione originale del prof (modificata solo per accettare il parametro opzionale toc)
 def convert_with_pandoc(input_files, output_file, metadata, pdf_engine=None, toc=False):#alcuni parametri li prendiamo in input
@@ -200,10 +198,8 @@ def generate_webbook(input_file):
     subprocess.run(command, check=True, cwd=DIR_SORGENTI)
     print(f"Web-Book generato in: {output_path}")
 
-# ==============================================================================
-# MAIN 
-# ==============================================================================
 
+# MAIN 
 def main():
     if not os.path.exists(DIR_OUTPUT):
         os.makedirs(DIR_OUTPUT)
